@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import '../styles/header.style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
-import { faYoutube, faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/logo.png';
 
-const Navbar = () => {
+const AdminNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -21,19 +20,11 @@ const Navbar = () => {
           <a href="#"><img src={logo} alt="KEINAN Architecture & Interior Design" /></a>
         </div>
         <ul className={`nav-links ${isOpen ? 'show' : ''}`}>
-          <li><a href="#">בית</a></li>
-          <li><a href="#">אודות</a></li>
-          <li><a href="#">פרוייקטים</a></li>
-          <li><a href="#">ממליצים</a></li>
-          <li><a href="#">תקשורת</a></li>
-          <li><a href="#">צור קשר</a></li>
+          <li><a href="#">פרטי עסק</a></li>
+          <li><a href="#">שירותים</a></li>
+          <li><a href="#">רשימת הזמנות</a></li>
+          <li><a href="#">רשימת לקוחות</a></li>
         </ul>
-        <div className="social-icons">
-          <a href="#"><FontAwesomeIcon icon={faEnvelope} /></a>
-          <a href="#"><FontAwesomeIcon icon={faYoutube} /></a>
-          <a href="#"><FontAwesomeIcon icon={faFacebookF} /></a>
-          <a href="#"><FontAwesomeIcon icon={faInstagram} /></a>
-        </div>
         <div className="language-switch">
           <button>He</button>
         </div>
@@ -45,4 +36,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

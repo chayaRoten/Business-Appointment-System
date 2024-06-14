@@ -2,23 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   RouterProvider,
 } from "react-router-dom";
 import App from './App.tsx'
-import { login } from './components/login.component';
+import { Admin } from './components/admin.component.tsx';
 
 import './index.css'
+import { Home } from './components/home.component.tsx';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const router = createBrowserRouter([
   {
     path: "",
     Component: App,
     children: [
       {
-        path: "login",
-        Component: logi,
+        path: "/",
+        Component: Home,
+      },
+      {
+        path: "admin",
+        Component: Admin,
       }
     ]
   }
@@ -27,6 +30,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

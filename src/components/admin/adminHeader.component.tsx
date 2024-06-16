@@ -22,7 +22,7 @@ const AdminNavbar = () => {
         <ul className={`nav-links ${isOpen ? 'show' : ''}`}>
         <li><Link to="/admin/business-detail">פרטי עסק</Link></li>
         <li><Link to="/admin/business-services">שירותים</Link></li>
-        <li><Link to="/admin/business-meetings">רשימת הזמנות</Link></li>
+        <li><Link to="/admin/business-meetings">רשימת פגישות</Link></li>
         <li><Link to="/admin">רשימת לקוחות</Link></li>
           <li><Link to="/signin">התחבר</Link></li>
           <li><Link to="/signup">הרשם</Link></li>

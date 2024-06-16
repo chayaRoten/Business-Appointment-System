@@ -5,10 +5,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from './App.tsx'
-import { Admin } from './components/admin.component.tsx';
+import { AdminLayout } from './components/admin/adminLayout.component.tsx';
 
 import './index.css'
-import { Home } from './components/home.component.tsx';
+import { Home } from './components/user/home.component.tsx';
+import BusinessDetails from './components/admin/businessDetails.component.tsx';
+import SignIn from './components/signIn.component.tsx';
+import SignUp from './components/signUp.component.tsx';
+import { AuthProvider } from './context/auth.context.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,11 +24,41 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "admin",
-        Component: Admin,
+        path: "signin",
+        element: <AuthProvider><div><SignIn></SignIn></div></AuthProvider>,
+      },
+      {
+        path: "signup",
+        element: <AuthProvider><div><SignUp></SignUp></div></AuthProvider>,
       }
     ]
+  },
+  {
+  path: "admin",
+    Component: AdminLayout,
+    children: [
+      {
+        path: "business-detail",
+        Component: BusinessDetails,
+      },
+      // {
+      //   path: "contact",
+      //   Component: Contact,
+      // },
+      // {
+      //   path: "about",
+      //   Component: About,
+      // },
+    ]
   }
+  // {
+  //   path: "admin",
+  //   Component: AdminLayout,
+  // },
+  // {
+  //   path: 'admin/business-detail',
+  //   Component: BusinessDetails
+  // }
 ])
 
 

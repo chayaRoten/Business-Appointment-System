@@ -49,7 +49,7 @@ body, html {
   }
   
   .nav-links a:hover {
-    color: #007BFF;
+    color: #7c7a7a;
   }
   
   .social-icons {
@@ -65,7 +65,7 @@ body, html {
   }
   
   .social-icons a:hover {
-    color: #007BFF;
+    color: #7c7a7a;
   }
   
   .language-switch button {
@@ -78,7 +78,7 @@ body, html {
   }
   
   .language-switch button:hover {
-    color: #007BFF;
+    color: #7c7a7a;
   }
   
   .hamburger {
@@ -105,5 +105,3 @@ body, html {
       display: block;
     }
   }
-  
-  

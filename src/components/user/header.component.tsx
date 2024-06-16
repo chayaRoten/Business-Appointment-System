@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import '../styles/header.style.css';
+import '../../styles/header.style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
 import { faYoutube, faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import logo from '../assets/logo.png';
+import logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +24,10 @@ const Navbar = () => {
           <li><a href="#">אודות</a></li>
           <li><a href="#">פרוייקטים</a></li>
           <li><a href="#">ממליצים</a></li>
-          <li><a href="#">תקשורת</a></li>
           <li><a href="#">צור קשר</a></li>
+          <li><a href="#">קביעת פגישה</a></li>
+          <li><Link to="/signin">התחבר</Link></li>
+          <li><Link to="/signup">הרשם</Link></li>
         </ul>
         <div className="social-icons">
           <a href="#"><FontAwesomeIcon icon={faEnvelope} /></a>

@@ -1,34 +1,33 @@
-.services-container {
-    padding: 20px;
+.users-container {
     max-width: 800px;
     margin: 101px auto;
+    padding: 20px;
     font-family: Arial, sans-serif;
-    top: 0;
   }
   
-  .services-container h1 {
+  .users-container h1 {
     text-align: center;
     margin-bottom: 20px;
   }
   
-  .services-list {
+  .users-list {
     list-style-type: none;
     padding: 0;
   }
   
-  .service-item {
-    background-color: #f9f9f9;
+  .user-item {
+    background-color: #f0f0f0;
     margin: 10px 0;
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .service-item h2 {
+  .user-item h2 {
     margin-top: 0;
   }
   
-  .service-item p {
+  .user-item p {
     margin: 5px 0;
   }
   

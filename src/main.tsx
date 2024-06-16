@@ -14,6 +14,7 @@ import SignUp from './components/signUp.component.tsx';
 import { AuthProvider } from './context/auth.context.tsx';
 import BusinessServices from './components/admin/businessServices.component.tsx';
 import BusinessMeetings from './components/admin/businessMeetings.component.tsx';
+import Users from './components/admin/users.component.tsx';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "business-meetings",
         Component: BusinessMeetings,
+      },
+      {
+        path: "users",
+        Component: Users,
       },
     ]
   }

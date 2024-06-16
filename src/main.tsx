@@ -6,13 +6,14 @@ import {
 } from "react-router-dom";
 import App from './App.tsx'
 import { AdminLayout } from './components/admin/adminLayout.component.tsx';
-
 import './index.css'
 import { Home } from './components/user/home.component.tsx';
 import BusinessDetails from './components/admin/businessDetails.component.tsx';
 import SignIn from './components/signIn.component.tsx';
 import SignUp from './components/signUp.component.tsx';
 import { AuthProvider } from './context/auth.context.tsx';
+import BusinessServices from './components/admin/businessServices.component.tsx';
+import BusinessMeetings from './components/admin/businessMeetings.component.tsx';
 
 const router = createBrowserRouter([
   {
@@ -41,14 +42,14 @@ const router = createBrowserRouter([
         path: "business-detail",
         Component: BusinessDetails,
       },
-      // {
-      //   path: "contact",
-      //   Component: Contact,
-      // },
-      // {
-      //   path: "about",
-      //   Component: About,
-      // },
+      {
+        path: "business-services",
+        Component: BusinessServices,
+      },
+      {
+        path: "business-meetings",
+        Component: BusinessMeetings,
+      },
     ]
   }
   // {

@@ -57,14 +57,6 @@ const router = createBrowserRouter([
       },
     ]
   }
-  // {
-  //   path: "admin",
-  //   Component: AdminLayout,
-  // },
-  // {
-  //   path: 'admin/business-detail',
-  //   Component: BusinessDetails
-  // }
 ])
 
 

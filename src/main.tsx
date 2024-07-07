@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -15,14 +15,26 @@ import { AuthProvider } from './context/auth.context.tsx';
 import BusinessServices from './components/admin/businessServices.component.tsx';
 import BusinessMeetings from './components/admin/businessMeetings.component.tsx';
 import Users from './components/admin/users.component.tsx';
+import AboutBusiness from './components/user/aboutBusiness.component.tsx';
+import { UserLayout } from './components/user/userLayout.component.tsx';
+import Projects from './components/user/projects.component.tsx';
+import MeetingScheduler from './components/user/meetingScheduler.component.tsx';
 
 const router = createBrowserRouter([
+  // {
+  //   path: "",
+  //   Component: App,
+  // },
   {
     path: "",
     Component: App,
     children: [
       {
         path: "/",
+        Component: UserLayout,
+      },
+      {
+        path: "home",
         Component: Home,
       },
       {
@@ -32,6 +44,18 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <AuthProvider><div><SignUp></SignUp></div></AuthProvider>,
+      },
+      {
+        path: "/about",
+        Component: AboutBusiness,
+      },
+      {
+        path: "/projects",
+        Component: Projects,
+      },
+      {
+        path: "/meetings",
+        Component: MeetingScheduler,
       }
     ]
   },

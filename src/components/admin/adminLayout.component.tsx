@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AdminNavbar from "./adminHeader.component";
+import AdminNavbar from "./adminNavbar.component";
 import axios from 'axios';
 
 export const AdminLayout = () => {

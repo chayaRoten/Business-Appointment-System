@@ -44,7 +44,7 @@ const BusinessDetails = () => {
           <p><strong>כתובת:</strong> {businessDetails.address}</p>
           <p><strong>טלפון:</strong> {businessDetails.phone}</p>
           <p><strong>דואר אלקטרוני:</strong> {businessDetails.email}</p>
-          {/* ניתן להוסיף פרטים נוספים בהתאם למידע מהשרת */}
+          
         </div>
       ) : (
         <div>לא נמצאו פרטים</div>

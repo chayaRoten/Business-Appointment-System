@@ -1,5 +1,6 @@
 import React, { useState, useContext, FormEvent } from 'react';
 import { AuthContext } from '../context/auth.context';
+import '../styles/signUp.css';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -16,7 +17,7 @@ const SignUp: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await signUp(email, password , username);
+      await signUp(email, password, username);
       alert('Registration successful!');
     } catch (error) {
       alert('Registration failed!');
@@ -24,22 +25,40 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Sign-Up</h2>
-      <div>
-        <label>User Name:</label>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-      </div>
-      <button type="submit">Register</button>
-    </form>
+    // <form onSubmit={handleSubmit}>
+    //   <h2>הרשם</h2>
+    //   <div>
+    //     <label>שם משתמש</label>
+    //     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+    //   </div>
+    //   <div>
+    //     <label>מייל</label>
+    //     <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
+    //   </div>
+    //   <div>
+    //     <label>סיסמה</label>
+    //     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+    //   </div>
+    //   <button type="submit">הרשם</button>
+    // </form>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2>הרשם</h2>
+        <div className="form-group">
+          <label>שם משתמש</label>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>מייל</label>
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>סיסמה</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <button type="submit">הרשם</button>
+      </form>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-import Navbar from "./header.component"
 import  React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
@@ -12,6 +11,7 @@ import  image7 from'../../assets/image7.jpg'
 import  image8 from'../../assets/image8.jpg'
 import  image9 from'../../assets/image9.png'
 import  image10 from'../../assets/image10.jpg'
+import UserNavbar from "./userNavbar.component";
 
 
 const images = [
@@ -114,10 +114,7 @@ export const Home = () => {
 
 
     return <div>
-        <Navbar />
-      {/* <main>
-        <h1>Welcome, User!</h1>
-      </main> */}
+        {/* <UserNavbar/> */}
       <Container>
       <ArrowLeft onClick={goToPrevious}>{'<'}</ArrowLeft>
       <ArrowRight onClick={goToNext}>{'>'}</ArrowRight>

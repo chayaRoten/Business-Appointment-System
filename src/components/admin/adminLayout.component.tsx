@@ -35,7 +35,9 @@ export const AdminLayout = () => {
 
   return (
     <div>
-      {isAuthorized ? <AdminNavbar /> : <h3>You are not authorized to perform this action</h3>}
+      {isAuthorized ? <AdminNavbar /> : <h3>You are not authorized to perform this action <br />
+        <a href="/signin">התחבר</a> / <a href="/signup">הרשם</a>
+        </h3>}
     </div>
   );
 };

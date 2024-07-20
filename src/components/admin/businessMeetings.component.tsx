@@ -6,8 +6,9 @@ const BusinessMeetings = () => {
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [newMeeting, setNewMeeting] = useState({ details: '', date: '', startTime: '', duration: '' });
+  const [newMeeting, setNewMeeting] = useState({ note: '', date: '', startTime: '', clientEmail: '', serviceType: '' , clientName:''});
   const [editMeeting, setEditMeeting] = useState(null);
+
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -44,7 +45,7 @@ const BusinessMeetings = () => {
 
       const response = await axios.post('http://localhost:3000/meetings', newMeeting, config);
       setMeetings([...meetings, response.data]);
-      setNewMeeting({ details: '', date: '', startTime: '', duration: '' });
+      setNewMeeting({ note: '', date: '', startTime: '', clientEmail: '', serviceType: '',clientName:'' });
     } catch (error) {
       setError(error);
     }
@@ -98,7 +99,7 @@ const BusinessMeetings = () => {
               <>
                 <input
                   type="text"
-                  value={editMeeting.details}
+                  value={editMeeting.note}
                   onChange={(e) => setEditMeeting({ ...editMeeting, details: e.target.value })}
                 />
                 <input
@@ -113,17 +114,29 @@ const BusinessMeetings = () => {
                 />
                 <input
                   type="text"
-                  value={editMeeting.duration}
+                  value={editMeeting.clientName}
+                  onChange={(e) => setEditMeeting({ ...editMeeting, startTime: e.target.value })}
+                />
+                 <input
+                  type="text"
+                  value={editMeeting.serviceType}
+                  onChange={(e) => setEditMeeting({ ...editMeeting, startTime: e.target.value })}
+                />
+                <input
+                  type="email"
+                  value={editMeeting.clientEmail}
                   onChange={(e) => setEditMeeting({ ...editMeeting, duration: e.target.value })}
                 />
                 <button onClick={() => handleEditMeeting(meeting.id)}>Save</button>
               </>
             ) : (
               <>
-                <h2>{meeting.details}</h2>
+                <h2>{meeting.note}</h2>
                 <p>Date: {new Date(meeting.date).toLocaleDateString()}</p>
                 <p>Time: {meeting.startTime}</p>
-                <p>Duration: {meeting.duration}</p>
+                <p>Duration: {meeting.serviceType}</p>
+                <p>Name: {meeting.clientName}</p>
+                <p>Email: {meeting.clientEmail}</p>
                 <button onClick={() => setEditMeeting(meeting)}>Edit</button>
                 <button onClick={() => handleDeleteMeeting(meeting.id)}>Delete</button>
               </>
@@ -134,9 +147,9 @@ const BusinessMeetings = () => {
       <h2>Add New Meeting</h2>
       <input
         type="text"
-        placeholder="Details"
-        value={newMeeting.details}
-        onChange={(e) => setNewMeeting({ ...newMeeting, details: e.target.value })}
+        placeholder="note"
+        value={newMeeting.note}
+        onChange={(e) => setNewMeeting({ ...newMeeting, note: e.target.value })}
       />
       <input
         type="date"
@@ -152,8 +165,20 @@ const BusinessMeetings = () => {
       />
       <input
         type="text"
-        placeholder="Duration"
-        value={newMeeting.duration}
+        placeholder="ServiceType"
+        value={newMeeting.serviceType}
+        onChange={(e) => setNewMeeting({ ...newMeeting, duration: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="ClientEmail"
+        value={newMeeting.clientEmail}
+        onChange={(e) => setNewMeeting({ ...newMeeting, duration: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="ClientName"
+        value={newMeeting.clientName}
         onChange={(e) => setNewMeeting({ ...newMeeting, duration: e.target.value })}
       />
       <button onClick={handleAddMeeting}>Add Meeting</button>

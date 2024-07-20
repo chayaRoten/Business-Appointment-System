@@ -11,7 +11,6 @@ import  image7 from'../../assets/image7.jpg'
 import  image8 from'../../assets/image8.jpg'
 import  image9 from'../../assets/image9.png'
 import  image10 from'../../assets/image10.jpg'
-import UserNavbar from "./userNavbar.component";
 
 
 const images = [
@@ -28,7 +27,6 @@ const images = [
 ];
 
 
-// אנימציית התמונה
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -114,7 +112,6 @@ export const Home = () => {
 
 
     return <div>
-        {/* <UserNavbar/> */}
       <Container>
       <ArrowLeft onClick={goToPrevious}>{'<'}</ArrowLeft>
       <ArrowRight onClick={goToNext}>{'>'}</ArrowRight>

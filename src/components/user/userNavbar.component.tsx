@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/header.style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,21 @@ import { Link, Outlet } from 'react-router-dom';
 
 const UserNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    const tokenString = localStorage.getItem('jwtToken');
+    const token = tokenString ? JSON.parse(tokenString) : null;
+
+    if (token) {
+      const userData = {
+        name: token.name,
+        role: token.role
+      };
+      setUser(userData);
+    }
+  }, []);
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -26,8 +40,16 @@ const UserNavbar = () => {
             <li><Link to="/about">אודות</Link></li>
             <li><Link to="/projects">פרוייקטים</Link></li>
             <li><Link to="/meetings">צור קשר</Link></li>
-            <li><Link to="/signin">התחבר</Link></li>
-            <li><Link to="/signup">הרשם</Link></li>
+            {/* <li><Link to="/signin">התחבר</Link></li> */}
+            {/* <li><Link to="/signup">הרשם</Link></li> */}
+            {!user ? (
+              <>
+                <li><Link to="/signin">התחבר</Link></li>
+                <li><Link to="/signup">הרשם</Link></li>
+              </>
+            ) : (
+              <li>שלום {user.name}, {user.role === 'admin' ? 'מנהל' : 'משתמש רגיל'}</li>
+            )}
           </ul>
           <div className="social-icons">
             <a href="#"><FontAwesomeIcon icon={faEnvelope} /></a>

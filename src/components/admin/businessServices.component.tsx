@@ -35,7 +35,7 @@ const BusinessServices = () => {
 
   return (
     <div className="services-container">
-      <h1>Our Services</h1>
+      <h1>השירותים שלנו</h1>
       <ul className="services-list">
         {services.map(service => (
           <li key={service.id} className="service-item">

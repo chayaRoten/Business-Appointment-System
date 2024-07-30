@@ -6,6 +6,20 @@ import { faYoutube, faFacebookF, faInstagram } from '@fortawesome/free-brands-sv
 import logo from '../../assets/logo.png';
 import { Link, Outlet } from 'react-router-dom';
 
+const decodeToken = (token) => {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error('Failed to decode token', e);
+    return null;
+  }
+};
 
 const UserNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,10 +30,7 @@ const UserNavbar = () => {
     const token = tokenString ? JSON.parse(tokenString) : null;
 
     if (token) {
-      const userData = {
-        name: token.name,
-        role: token.role
-      };
+      const userData = decodeToken(token);
       setUser(userData);
     }
   }, []);
@@ -40,15 +51,13 @@ const UserNavbar = () => {
             <li><Link to="/about">אודות</Link></li>
             <li><Link to="/projects">פרוייקטים</Link></li>
             <li><Link to="/meetings">צור קשר</Link></li>
-            {/* <li><Link to="/signin">התחבר</Link></li> */}
-            {/* <li><Link to="/signup">הרשם</Link></li> */}
             {!user ? (
               <>
                 <li><Link to="/signin">התחבר</Link></li>
                 <li><Link to="/signup">הרשם</Link></li>
               </>
             ) : (
-              <li>שלום {user.name}, {user.role === 'admin' ? 'מנהל' : 'משתמש רגיל'}</li>
+              <li>שלום {user.username}, {user.role === 'admin' ? 'מנהל' : 'משתמש רגיל'}</li>
             )}
           </ul>
           <div className="social-icons">

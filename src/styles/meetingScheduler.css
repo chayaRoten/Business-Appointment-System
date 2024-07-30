@@ -1,45 +1,58 @@
+/* meetingScheduler.css */
+
 .meeting-scheduler {
-    max-width: 600px;
-    margin: 150px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .meeting-scheduler h2 {
-    text-align: center;
-  }
-  
-  .meeting-scheduler form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .meeting-scheduler label {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .meeting-scheduler input,
-  .meeting-scheduler textarea,
-  .meeting-scheduler select {
-    padding: 8px;
-    font-size: 16px;
-  }
-  
-  .meeting-scheduler button {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .meeting-scheduler button:hover {
-    background-color: #0056b3;
-  }
-  
+  background-color: #121212;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-top: 166PX;
+}
+
+.meeting-scheduler h2 {
+  color: #ff4081;
+  margin-bottom: 20px;
+}
+
+
+.meeting-scheduler label {
+  display: block;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+
+.meeting-scheduler input,
+.meeting-scheduler textarea,
+.meeting-scheduler select {
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.meeting-scheduler select {
+  background-color: #444444;
+}
+
+.meeting-scheduler button {
+  background-color: #ff4081;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.meeting-scheduler button:hover {
+  background-color: #e0336b;
+}
+
+
+.meeting-scheduler p {
+  color: #ff4081;
+}

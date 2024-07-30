@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/meetingScheduler.css';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
-const MeetingScheduler = ({ addMeeting }) => {
+
+const MeetingScheduler = () => {
   const [serviceTypes, setServiceTypes] = useState([]);
   const [serviceType, setServiceType] = useState('');
   const [date, setDate] = useState('');
@@ -12,18 +15,23 @@ const MeetingScheduler = ({ addMeeting }) => {
   const [clientEmail, setClientEmail] = useState('');
   const [error, setError] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(true);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
-    try {
-      const tokenString = localStorage.getItem('jwtToken');
-      const token = tokenString !== null ? JSON.parse(tokenString) : null;
-      if (!token) {
-        setIsAuthorized(false);
-        return;
-      }
-    } catch (error) {
+    const tokenString = localStorage.getItem('jwtToken');
+    const token = tokenString ? JSON.parse(tokenString) : null;
+    if (!token) {
       setIsAuthorized(false);
-      console.error('Failed to fetch service types', error);
+      return;
+    }
+
+    try {
+      const decoded = jwtDecode(token);
+      setClientName(decoded.username || '');
+      setClientEmail(decoded.email || '');
+    } catch (error) {
+      console.error('Invalid token', error);
     }
 
     const fetchServiceTypes = async () => {
@@ -44,7 +52,6 @@ const MeetingScheduler = ({ addMeeting }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const tokenString = localStorage.getItem('jwtToken');
     const token = tokenString !== null ? JSON.parse(tokenString) : null;
     if (!token) {
@@ -57,11 +64,10 @@ const MeetingScheduler = ({ addMeeting }) => {
         authorization: `Bearer ${token}`
       }
     };
-
     const newMeeting = {
+      startTime: time,
       serviceType,
       date,
-      time,
       note,
       clientName,
       clientEmail
@@ -70,13 +76,15 @@ const MeetingScheduler = ({ addMeeting }) => {
     try {
       const response = await axios.post('http://localhost:3000/meetings', newMeeting, config);
       if (response.status === 201 || response.status === 200) {
-        addMeeting(newMeeting);
+        // addMeeting(newMeeting);
         setServiceType('');
         setDate('');
         setTime('');
         setNote('');
         setClientName('');
         setClientEmail('');
+        alert("הפגישה נקבעה בהצלחה"); 
+        navigate("/home");
       } else {
         throw new Error('Failed to schedule meeting');
       }
@@ -100,7 +108,9 @@ const MeetingScheduler = ({ addMeeting }) => {
           סוג השירות:
           <select
             value={serviceType}
-            onChange={(e) => setServiceType(e.target.value)}
+            onChange={(e) => {
+              setServiceType(e.target.value);
+            }}
             required
           >
             <option value="">בחר סוג שירות</option>
@@ -108,6 +118,7 @@ const MeetingScheduler = ({ addMeeting }) => {
               <option key={type.id} value={type.id}>{type.name}</option>
             ))}
           </select>
+
         </label>
         <label>
           תאריך:
@@ -146,7 +157,7 @@ const MeetingScheduler = ({ addMeeting }) => {
         <label>
           מייל:
           <input
-            type="email"
+            type="text"
             value={clientEmail}
             onChange={(e) => setClientEmail(e.target.value)}
             required

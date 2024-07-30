@@ -5,6 +5,23 @@ import { faEnvelope, faBars } from '@fortawesome/free-solid-svg-icons';
 import { faYoutube, faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import logo from '../../assets/logo.png';
 import { Link, Outlet } from 'react-router-dom';
+// import i18n from 'i18next';
+// import { initReactI18next, useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+
+// // Initialize i18next
+// i18n
+//   .use(initReactI18next)
+//   .init({
+//     // resources,
+//     lng: 'en', // default language
+//     fallbackLng: 'en',
+//     interpolation: {
+//       escapeValue: false,
+//     },
+//   });
+
+
 
 const decodeToken = (token) => {
   try {
@@ -39,6 +56,10 @@ const UserNavbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLanguageChange = (e) => {
+    i18n.changeLanguage(e.target.value);
+  };
+
   return (
     <>
       <header>
@@ -67,7 +88,11 @@ const UserNavbar = () => {
             <a href="#"><FontAwesomeIcon icon={faInstagram} /></a>
           </div>
           <div className="language-switch">
-            <button>He</button>
+            <select onChange={handleLanguageChange} defaultValue={i18n.language}>
+              <option value="en">English</option>
+              <option value="he">עברית</option>
+              <option value="ar">عربي</option>
+            </select>
           </div>
           <div className="hamburger" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faBars} />

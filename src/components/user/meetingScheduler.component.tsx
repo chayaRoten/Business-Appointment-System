@@ -3,7 +3,8 @@ import '../../styles/meetingScheduler.css';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
+import '../../styles/alerts.css'; // Import the SweetAlert2 styles
 
 const MeetingScheduler = () => {
   const [serviceTypes, setServiceTypes] = useState([]);
@@ -16,7 +17,6 @@ const MeetingScheduler = () => {
   const [error, setError] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(true);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const tokenString = localStorage.getItem('jwtToken');
@@ -76,28 +76,49 @@ const MeetingScheduler = () => {
     try {
       const response = await axios.post('http://localhost:3000/meetings', newMeeting, config);
       if (response.status === 201 || response.status === 200) {
-        // addMeeting(newMeeting);
+        Swal.fire({
+          title: 'הפגישה נקבעה בהצלחה',
+          icon: 'success',
+          confirmButtonText: 'אישור',
+          customClass: {
+            popup: 'swal2-popup',
+            title: 'swal2-title',
+            confirmButton: 'swal2-confirm'
+          }
+        });
         setServiceType('');
         setDate('');
         setTime('');
         setNote('');
         setClientName('');
         setClientEmail('');
-        alert("הפגישה נקבעה בהצלחה"); 
         navigate("/home");
       } else {
         throw new Error('Failed to schedule meeting');
       }
     } catch (error) {
+      Swal.fire({
+        title: 'שגיאה',
+        text: 'נכשל קביעת פגישה',
+        icon: 'error',
+        confirmButtonText: 'ניסיון שוב',
+        customClass: {
+          popup: 'swal2-popup',
+          title: 'swal2-title',
+          confirmButton: 'swal2-confirm'
+        }
+      });
       setError('Failed to schedule meeting');
     }
   };
 
   if (!isAuthorized) {
-    return <div>
-      <p>אין גישה לעמוד</p>
-      <p><a href="/signin">התחבר</a> / <a href="/signup">הרשם</a> בכדי לקבוע פגישה</p>
-    </div>;
+    return (
+      <div>
+        <p>אין גישה לעמוד</p>
+        <p><a href="/signin">התחבר</a> / <a href="/signup">הרשם</a> בכדי לקבוע פגישה</p>
+      </div>
+    );
   }
 
   return (
@@ -108,9 +129,7 @@ const MeetingScheduler = () => {
           סוג השירות:
           <select
             value={serviceType}
-            onChange={(e) => {
-              setServiceType(e.target.value);
-            }}
+            onChange={(e) => setServiceType(e.target.value)}
             required
           >
             <option value="">בחר סוג שירות</option>
@@ -118,7 +137,6 @@ const MeetingScheduler = () => {
               <option key={type.id} value={type.id}>{type.name}</option>
             ))}
           </select>
-
         </label>
         <label>
           תאריך:

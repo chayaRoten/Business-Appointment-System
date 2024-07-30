@@ -14,15 +14,20 @@
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@types/i18next": "^13.0.0",
+    "@types/react-i18next": "^8.1.0",
     "axios": "^1.7.2",
+    "i18next": "^23.12.2",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^15.0.0",
     "react-intersection-observer": "^9.10.3",
     "react-router-dom": "^6.25.1",
     "react-tooltip": "^5.27.1",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "sweetalert2": "^11.12.3"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

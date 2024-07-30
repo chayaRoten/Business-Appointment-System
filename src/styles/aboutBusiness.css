@@ -1,45 +1,41 @@
+/* aboutBusiness.css */
+
 .about-us {
-    direction: rtl;
-    text-align: right;
-    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background similar to meetingScheduler */
+    color: #ffffff; /* White text for readability */
     padding: 20px;
-    margin: 127px 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.about-us h1, 
-.about-us p, 
-.about-us h2 {
-    text-align: right;
-}
-
-.about-us h1 {
-    color: #333;
-}
-
-.about-us .quote {
-    font-style: italic;
-    color: #555;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-top: 166px; /* Same as meetingScheduler */
+  }
+  
+  .about-us h1 {
+    color: #ff4081; /* Heading color matching the accent color */
     margin-bottom: 20px;
-}
-
-.about-us h2 {
-    color: #444;
-    margin-top: 20px;
-}
-
-.about-us p {
-    line-height: 1.6;
-    color: #666;
-}
-
-.about-us a {
-    color: #007BFF;
-    text-decoration: none;
-}
-
-.about-us a:hover {
-    text-decoration: underline;
-}
+  }
+  
+  .about-us h2 {
+    color: #ff4081; /* Heading color matching the accent color */
+    margin-bottom: 15px;
+  }
+  
+  .about-us p {
+    color: #ffffff; /* White text for paragraphs */
+    margin-bottom: 20px; /* Space between paragraphs */
+  }
+  
+  .about-us .quote {
+    font-style: italic;
+    color: #ff4081; /* Quote color matching the accent color */
+    margin: 10px 0;
+  }
+  
+  .about-us a {
+    color: #ff4081; /* Link color matching the accent color */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .about-us a:hover {
+    text-decoration: underline; /* Underline links on hover for better visibility */
+  }
+  

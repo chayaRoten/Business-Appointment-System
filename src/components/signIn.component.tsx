@@ -1,7 +1,10 @@
 import React, { useState, useContext, FormEvent } from 'react';
 import { AuthContext } from '../context/auth.context';
-import '../styles/signIn.css';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import '../styles/alerts.css';
+import '../styles/signIn.css';
+
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -20,10 +23,19 @@ const SignIn: React.FC = () => {
     e.preventDefault();
     try {
       await signIn(email, password, username);
-      alert('Login successful!');
+      // alert('Login successful!');
+      Swal.fire({
+        title: 'Registration successful!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
       navigate('/home');
     } catch (error) {
-      alert('Login failed! ' + error);
+      Swal.fire({
+        title: 'Registration failed!',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+      });
     }
   };
 

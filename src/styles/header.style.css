@@ -1,4 +1,4 @@
-body, html {
+/* body, html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,8 +6,8 @@ body, html {
 }
 
 header {
-  background-color: #121212; /* Dark background for the header */
-  border-bottom: 1px solid #444444; /* Slightly lighter border */
+  background-color: #121212; 
+  border-bottom: 1px solid #444444; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
@@ -79,6 +79,159 @@ header {
 
 .language-switch button:hover {
   color: #ff4081;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    display: none;
+    width: 100%;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .navbar {
+    flex-direction: column;
+  }
+
+  .hamburger {
+    display: block;
+  }
+} */
+
+
+
+
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #121212;
+  border-bottom: 1px solid #444444;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: row-reverse;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #b30000;
+}
+
+.user-icon {
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  position: relative;
+}
+
+.user-icon:hover {
+  color: #b30000;
+}
+
+/* Modal styles */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #121212;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  max-width: 90%;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #444444;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  background: #1c1c1c;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.tab.active {
+  background: #b30000;
+}
+
+.tab-content {
+  padding: 20px;
+  background: #1c1c1c;
+  color: #ffffff;
 }
 
 .hamburger {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/meetingScheduler.css';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import '../../styles/alerts.css'; // Import the SweetAlert2 styles
+import '../../styles/alerts.css';
+import '../../styles/meetingScheduler.css';
+
 
 const MeetingScheduler = () => {
   const [serviceTypes, setServiceTypes] = useState([]);

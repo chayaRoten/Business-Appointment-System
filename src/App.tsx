@@ -1,14 +1,22 @@
 import './App.css'
 import { UserLayout } from './components/user/userLayout.component';
+import { AuthProvider } from './context/auth.context';
 
-function App() {
+// function App() {
+//   return (
+//     <>
+//        {/* <Outlet /> */}
+//        <UserLayout/>
+//     </>
+//   )
+// }
 
+const App: React.FC = () => {
   return (
-    <>
-       {/* <Outlet /> */}
-       <UserLayout/>
-    </>
-  )
-}
+    <AuthProvider>
+      <UserLayout />
+    </AuthProvider>
+  );
+};
 
 export default App

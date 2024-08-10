@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import AdminNavbar from "./adminNavbar.component";
 import axios from 'axios';
+import Navbar from '../navbar.component';
 
 export const AdminLayout = () => {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -35,7 +35,7 @@ export const AdminLayout = () => {
 
   return (
     <div>
-      {isAuthorized ? <AdminNavbar /> : <h3>You are not authorized to perform this action <br />
+      {isAuthorized ? <Navbar /> : <h3>You are not authorized to perform this action <br />
         <a href="/signin">התחבר</a> / <a href="/signup">הרשם</a>
         </h3>}
     </div>

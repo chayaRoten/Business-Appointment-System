@@ -21,10 +21,6 @@ import Projects from './components/user/projects.component.tsx';
 import MeetingScheduler from './components/user/meetingScheduler.component.tsx';
 
 const router = createBrowserRouter([
-  // {
-  //   path: "",
-  //   Component: App,
-  // },
   {
     path: "",
     Component: App,
@@ -64,7 +60,7 @@ const router = createBrowserRouter([
     Component: AdminLayout,
     children: [
       {
-        path: "business-detail",
+        path: "business-details",
         Component: BusinessDetails,
       },
       {

@@ -1,4 +1,4 @@
-import UserNavbar from './userNavbar.component';
+import UserNavbar from '../navbar.component';
 
 export const UserLayout = () => {
 

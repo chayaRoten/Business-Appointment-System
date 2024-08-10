@@ -10,12 +10,12 @@
   }
   
   .about-us h1 {
-    color: #ff4081; /* Heading color matching the accent color */
+    color: #b30000; /* Heading color matching the accent color */
     margin-bottom: 20px;
   }
   
   .about-us h2 {
-    color: #ff4081; /* Heading color matching the accent color */
+    color: #b30000; /* Heading color matching the accent color */
     margin-bottom: 15px;
   }
   
@@ -26,12 +26,12 @@
   
   .about-us .quote {
     font-style: italic;
-    color: #ff4081; /* Quote color matching the accent color */
+    color: #b30000; /* Quote color matching the accent color */
     margin: 10px 0;
   }
   
   .about-us a {
-    color: #ff4081; /* Link color matching the accent color */
+    color: #b30000; /* Link color matching the accent color */
     text-decoration: none; /* Remove underline from links */
   }
   

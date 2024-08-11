@@ -1,0 +1,119 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import '../../styles/userMeetings.style.css';
+import '../../styles/global.css';
+
+const UserMeetings = () => {
+  const [meetings, setMeetings] = useState([]);
+  const [serviceTypes, setServiceTypes] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [sortOrder, setSortOrder] = useState('date'); // State for sorting
+  const [filters, setFilters] = useState({ serviceType: '', dateRange: '' }); // State for filters
+
+  useEffect(() => {
+    const fetchMeetingsAndServices = async () => {
+      try {
+        const tokenString = localStorage.getItem('jwtToken');
+        const token = tokenString !== null ? JSON.parse(tokenString) : null;
+        const config = {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        };
+
+        // Fetch meetings
+        const meetingsResponse = await axios.get('http://localhost:3000/meetings', config);
+        setMeetings(meetingsResponse.data);
+
+        // Fetch service types
+        const servicesResponse = await axios.get('http://localhost:3000/services', config);
+        const services = servicesResponse.data.reduce((acc, service) => {
+          acc[service.id] = service.name;
+          return acc;
+        }, {});
+        setServiceTypes(services);
+
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    fetchMeetingsAndServices();
+  }, []);
+
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+  };
+
+  const filteredMeetings = meetings.filter(meeting => {
+    const meetsServiceType = filters.serviceType ? meeting.serviceType === filters.serviceType : true;
+    const meetsDateRange = filters.dateRange ? new Date(meeting.date) >= new Date(filters.dateRange) : true;
+    return meetsServiceType && meetsDateRange;
+  });
+
+  const sortedMeetings = [...filteredMeetings].sort((a, b) => {
+    if (sortOrder === 'date') {
+      return new Date(a.date) - new Date(b.date);
+    }
+    return 0;
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading meetings: {error.message}</p>;
+
+  return (
+    <div className="meetings-container">
+      <h1>רשימת הפגישות</h1>
+
+      <div className="sort-options">
+        <label htmlFor="sortOrder">סדר לפי:</label>
+        <select id="sortOrder" value={sortOrder} onChange={handleSortChange}>
+          <option value="date">תאריך</option>
+        </select>
+      </div>
+
+      <div className="filter-options">
+        <label htmlFor="serviceType"> סנן לפי סוג שירות: </label>
+        <select id="serviceType" name="serviceType" value={filters.serviceType} onChange={handleFilterChange}>
+          <option value="">בחר סוג שירות</option>
+          {Object.entries(serviceTypes).map(([id, name]) => (
+            <option key={id} value={id}>{name}</option>
+          ))}
+        </select>
+
+        <label htmlFor="dateRange"> סנן לפי תאריך: </label>
+        <input
+          type="date"
+          id="dateRange"
+          name="dateRange"
+          value={filters.dateRange}
+          onChange={handleFilterChange}
+        />
+      </div>
+
+      <ul className="meetings-list">
+        {sortedMeetings.map(meeting => (
+          <li key={meeting.id} className="meeting-item">
+            <p><strong>שירות:</strong> {serviceTypes[meeting.serviceType] || meeting.serviceType}</p>
+            <p><strong>תאריך:</strong> {new Date(meeting.date).toLocaleDateString()}</p>
+            <p><strong>שעה:</strong> {meeting.startTime}</p>
+            <p><strong>שם:</strong> {meeting.clientName}</p>
+            <p><strong>אימייל:</strong> <span className="meeting-email">{meeting.clientEmail}</span></p>
+            <p><strong>הערה:</strong> {meeting.note}</p>
+            <p className="duration">משך הפגישה: 45 דקות</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UserMeetings;

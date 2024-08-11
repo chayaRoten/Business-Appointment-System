@@ -3,8 +3,10 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import '../../styles/alerts.css';
-import '../../styles/meetingScheduler.css';
+import '../../styles/alerts.style.css';
+import '../../styles/meetingScheduler.style.css';
+import '../../styles/global.css';
+
 
 
 const MeetingScheduler = () => {
@@ -171,15 +173,17 @@ const MeetingScheduler = () => {
             value={clientName}
             onChange={(e) => setClientName(e.target.value)}
             required
+            readOnly
           />
         </label>
         <label>
           מייל:
-          <input
+          <input className="meeting-email"
             type="text"
             value={clientEmail}
             onChange={(e) => setClientEmail(e.target.value)}
             required
+            readOnly
           />
         </label>
         <button type="submit">קבע פגישה</button>

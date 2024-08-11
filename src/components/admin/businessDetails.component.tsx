@@ -1,5 +1,7 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/businessDetails.style.css';
+import '../../styles/global.css';
 
 const BusinessDetails = () => {
   const [businessDetails, setBusinessDetails] = useState(null);
@@ -28,15 +30,15 @@ const BusinessDetails = () => {
   }, []);
 
   if (loading) {
-    return <div>טוען...</div>;
+    return <div className="loading">טוען...</div>;
   }
 
   if (error) {
-    return <div>שגיאה: {error}</div>;
+    return <div className="error">שגיאה: {error}</div>;
   }
 
   return (
-    <div>
+    <div className="business-details-container">
       {businessDetails ? (
         <div>
           <h2>פרטי עסק</h2>
@@ -44,7 +46,7 @@ const BusinessDetails = () => {
           <p><strong>כתובת:</strong> {businessDetails.address}</p>
           <p><strong>טלפון:</strong> {businessDetails.phone}</p>
           <p><strong>דואר אלקטרוני:</strong> {businessDetails.email}</p>
-          
+
         </div>
       ) : (
         <div>לא נמצאו פרטים</div>

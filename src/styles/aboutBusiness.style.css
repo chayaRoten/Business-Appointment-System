@@ -1,12 +1,11 @@
 /* aboutBusiness.css */
 
 .about-us {
-    background-color: #121212; /* Dark background similar to meetingScheduler */
     color: #ffffff; /* White text for readability */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    margin-top: 166px; /* Same as meetingScheduler */
+    direction: rtl;
   }
   
   .about-us h1 {

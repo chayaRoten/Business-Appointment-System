@@ -1,6 +1,8 @@
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../styles/businessServices.css'; 
+import '../../styles/businessServices.style.css'; 
+import '../../styles/global.css';
+
 
 const BusinessServices = () => {
   const [services, setServices] = useState([]);

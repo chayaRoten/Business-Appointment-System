@@ -2,11 +2,18 @@ import React, { useState, useContext, FormEvent } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import '../styles/alerts.css';
-import '../styles/signIn.css';
+import '../styles/alerts.style.css';
+import '../styles/signIn.style.css';
+import '../styles/global.css';
 
 
-const SignIn: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+interface SignInProps {
+  onSuccess: (userData: any) => void;
+  closeModal: () => void;
+}
+
+const SignIn: React.FC<SignInProps> = ({ onSuccess, closeModal }) => {
+  const [credentials, setCredentials] = useState({email:'',  password: '', username: '' });
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -28,6 +35,10 @@ const SignIn: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     e.preventDefault();
     try {
       await signIn(email, password, username);
+      const response = await signIn(email, password, username);
+      if (response.success) {
+        onSuccess(response.userData);
+      }
       Swal.fire({
         title: 'Login successful!',
         icon: 'success',

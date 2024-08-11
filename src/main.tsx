@@ -19,6 +19,7 @@ import AboutBusiness from './components/user/aboutBusiness.component.tsx';
 import { UserLayout } from './components/user/userLayout.component.tsx';
 import Projects from './components/user/projects.component.tsx';
 import MeetingScheduler from './components/user/meetingScheduler.component.tsx';
+import UserMeetings from './components/user/userMeetings.component.tsx';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: "/meetings",
         Component: MeetingScheduler,
+      },
+      {
+        path: "/my-meetings",
+        Component: UserMeetings,
       }
     ]
   },

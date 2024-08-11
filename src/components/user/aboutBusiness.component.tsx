@@ -1,4 +1,6 @@
-import '../../styles/aboutBusiness.css';
+import '../../styles/aboutBusiness.style.css';
+import '../../styles/global.css';
+
 const AboutBusiness = () => {
 
   return (

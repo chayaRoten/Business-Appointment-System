@@ -3,8 +3,8 @@ import { User } from "./user.interface";
 
 export interface AuthContextType {
     user: User | null;
-    signIn: (email: string, password: string , username: string) => Promise<void>;
-    signUp: (email: string, password: string, username:string) => Promise<void>;
+    signIn: (email: string, password: string , username: string) => Promise<{ success: boolean; userData?: any }>;
+    signUp: (email: string, password: string, username:string) => Promise<{ success: boolean; userData?: any }>;
   }
 
 

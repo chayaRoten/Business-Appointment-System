@@ -1,26 +1,26 @@
-/* meetingScheduler.css */
-
 .meeting-scheduler {
-  background-color: #121212;
+  /* background-color: #121212; */
   color: #ffffff;
-  padding: 20px;
+  padding: 40px; /* Increased padding for larger form */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  margin-top: 166PX;
+  max-width: 800px; /* Increase form width */
+  margin: auto; /* Center the form */
+  direction: rtl;
 }
 
 .meeting-scheduler h2 {
-  color: #ff4081;
-  margin-bottom: 20px;
+  color: #b30000;
+  margin-bottom: 40px; /* Increased margin */
+  font-size: 32px; /* Larger heading */
 }
-
 
 .meeting-scheduler label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 20px; /* Increased spacing between fields */
   color: #ffffff;
+  font-size: 18px; /* Larger label text */
 }
-
 
 .meeting-scheduler input,
 .meeting-scheduler textarea,
@@ -29,9 +29,10 @@
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  padding: 10px;
+  padding: 15px; /* Larger padding for bigger input fields */
   width: 100%;
   box-sizing: border-box;
+  font-size: 18px; /* Larger input text */
 }
 
 .meeting-scheduler select {
@@ -39,20 +40,24 @@
 }
 
 .meeting-scheduler button {
-  background-color: #ff4081;
+  background-color: #b30000;
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 15px 30px; /* Increased button size */
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px; /* Larger button text */
 }
 
 .meeting-scheduler button:hover {
-  background-color: #e0336b;
+  background-color: #b300007c;
 }
 
-
 .meeting-scheduler p {
-  color: #ff4081;
+  color: #b30000;
+  font-size: 18px; /* Larger paragraph text */
+}
+
+.meeting-email{
+  direction: ltr;
 }

@@ -1,7 +1,7 @@
-import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import ReactTooltip from 'react-tooltip';
-import '../../styles/projects.css';
+import '../../styles/projects.style.css';
+import '../../styles/global.css';
+
 
 import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
@@ -16,16 +16,16 @@ import image10 from '../../assets/image10.jpg'
 
 
 const projectImages = [
-    { src: image1, title: 'פרויקט 1' },
-    { src: image2, title: 'פרויקט 2' },
-    { src: image3, title: 'פרויקט 3' },
-    { src: image4, title: 'פרויקט 4' },
-    { src: image5, title: 'פרויקט 5' },
-    { src: image6, title: 'פרויקט 6' },
-    { src: image7, title: 'פרויקט 7' },
-    { src: image8, title: 'פרויקט 8' },
-    { src: image9, title: 'פרויקט 9' },
-    { src: image10, title: 'פרויקט 10' },
+    { src: image1, title: 'אדריכלות נחלה במושב השבעה' },
+    { src: image2, title: 'עיצוב פנים לוילה בקיסריה' },
+    { src: image3, title: 'עיצוב פנים באלקנה' },
+    { src: image4, title: 'אדריכלות מושב מבקיעים' },
+    { src: image5, title: 'אדריכלות ועיצוב פנים למשפחה בשדרות' },
+    { src: image6, title: 'אדריכלות מושב שיבולים' },
+    { src: image7, title: 'פנטהוז בהרצליה' },
+    { src: image8, title: 'פנטהוז עם נוף לים בהרצליה' },
+    { src: image9, title: 'וילה בסביון' },
+    { src: image10, title: 'אדריכלות ועיצוב פנים עבור מבנה בפלמחים' },
 ];
 
 const Projects = () => {

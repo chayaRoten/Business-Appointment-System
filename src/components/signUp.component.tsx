@@ -1,11 +1,18 @@
 import React, { useState, useContext, FormEvent } from 'react';
 import { AuthContext } from '../context/auth.context';
-import '../styles/signUp.css';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import '../styles/signUp.style.css';
+import '../styles/global.css';
 
 
-const SignUp: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+interface SignUpProps {
+  onSuccess: (userData: any) => void;
+  closeModal: () => void;
+}
+
+const SignUp: React.FC<SignUpProps> = ({ onSuccess, closeModal }) => {
+  const [newUserData, setNewUserData] =  useState({email:'',  password: '', username: '' });
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -15,6 +22,7 @@ const SignUp: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   if (!authContext) {
     throw new Error("AuthContext must be used within an AuthProvider");
   }
+
 
   const signUp = authContext?.signUp;
 
@@ -26,6 +34,10 @@ const SignUp: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     e.preventDefault();
     try {
       await signUp(email, password, username);
+      const response = await signUp(email, password, username);
+      if (response.success) {
+        onSuccess(response.userData);
+      }
       Swal.fire({
         title: 'Registration successful!',
         icon: 'success',

@@ -1,0 +1,9 @@
+/* global.css */
+body {
+    background-color: black;
+    color: white; /* Optional: Sets text color to white for better contrast */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Optional: Sets a default font */
+  }
+  

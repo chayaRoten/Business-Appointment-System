@@ -1,0 +1,81 @@
+.meetings-container {
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin: auto;
+  direction: rtl;
+  background-color: transparent; /* Remove background color */
+}
+
+.meetings-container h1 {
+  color: #b30000;
+  margin-bottom: 30px;
+  font-size: 28px;
+  text-align: center;
+}
+
+.sort-options,
+.filter-options {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.sort-options label,
+.filter-options label {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #ffffff;
+}
+
+.sort-options select,
+.filter-options select,
+.filter-options input[type="date"] {
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.meetings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.meeting-item {
+  background-color: #222222;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  flex: 1 1 calc(25% - 15px); /* Adjust size based on container width */
+  min-width: 200px; /* Minimum width of each item */
+  box-sizing: border-box;
+}
+
+.meeting-item p {
+  margin: 5px 0;
+  color: #ffffff;
+}
+
+.meeting-item p strong {
+  color: #b30000;
+}
+
+.meeting-item .duration {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #b30000;
+}
+
+.meeting-item .meeting-email {
+  direction: ltr;
+  color: #ffffff;
+}

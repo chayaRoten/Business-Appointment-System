@@ -1,4 +1,4 @@
-/* styles/alerts.css */
+styles/alerts.css
 
 .swal2-popup {
     background-color: #121212; /* Dark background for the alert */
@@ -7,11 +7,11 @@
   }
   
   .swal2-title {
-    color: #ff4081; /* Accent color for the title */
+    color: #b30000; /* Accent color for the title */
   }
   
   .swal2-confirm {
-    background-color: #ff4081; /* Accent color for the confirm button */
+    background-color: #b30000; /* Accent color for the confirm button */
     color: #ffffff; /* White text color for the button */
     border: none;
     border-radius: 4px;
@@ -20,7 +20,7 @@
   }
   
   .swal2-confirm:hover {
-    background-color: #e0336b; /* Slightly darker shade on hover */
+    background-color: #b30000; /* Slightly darker shade on hover */
   }
   
   .swal2-cancel {

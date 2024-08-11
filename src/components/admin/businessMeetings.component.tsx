@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../styles/businessMeetings.css';
+import '../../styles/businessMeetings.style.css';
+import '../../styles/global.css';
+
 
 const BusinessMeetings = () => {
   const [meetings, setMeetings] = useState([]);

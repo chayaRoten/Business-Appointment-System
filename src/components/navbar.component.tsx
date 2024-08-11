@@ -7,6 +7,8 @@ import SignIn from './signIn.component';
 import SignUp from './signUp.component';
 import '../styles/header.style.css';
 import logo from '../assets/logo.png';
+import '../styles/global.css';
+
 
 
 // Initialize Modalsi
@@ -73,6 +75,17 @@ const Navbar = () => {
     navigate('/home');
   };
 
+  const handleLoginSuccess = (userData: any) => {
+    setUser(userData);
+    closeModal();
+  };
+
+  const handleSignUpSuccess = (userData: any) => {
+    setUser(userData);
+    closeModal();
+  };
+
+
   return (
     <>
       <header>
@@ -105,9 +118,9 @@ const Navbar = () => {
                   </div>
                   <div className="tab-content">
                     {activeTab === 'login' ? (
-                      <SignIn closeModal={closeModal} />
+                      <SignIn onSuccess={handleLoginSuccess} closeModal={closeModal} />
                     ) : (
-                      <SignUp closeModal={closeModal} />
+                      <SignUp onSuccess={handleSignUpSuccess} closeModal={closeModal} />
                     )}
                   </div>
                 </Modal>
@@ -144,12 +157,13 @@ const Navbar = () => {
               </>
             )}
 
-            {user && !isAdminRoute && (
+            {!isAdminRoute && (
               <>
                 <li><Link to="/home">בית</Link></li>
                 <li><Link to="/about">אודות</Link></li>
                 <li><Link to="/projects">פרוייקטים</Link></li>
                 <li><Link to="/meetings">צור קשר</Link></li>
+                <li><Link to="/my-meetings">הפגישות שלי</Link></li>
               </>
             )}
 

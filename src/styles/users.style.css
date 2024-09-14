@@ -1,33 +1,157 @@
+/* users.style.css */
+
 .users-container {
-    max-width: 800px;
-    margin: 101px auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .users-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .users-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .user-item {
-    background-color: #f0f0f0;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .user-item h2 {
-    margin-top: 0;
-  }
-  
-  .user-item p {
-    margin: 5px 0;
-  }
-  
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin: 20px auto;
+  direction: rtl;
+  background-color: #222222; /* Slightly darker background */
+}
+
+.users-container h1 {
+  color: #b30000;
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.sort-options {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.sort-options input[type="text"] {
+  background-color: #444444;
+  color: #ffffff;
+  border: 1px solid #666666;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  width: calc(100% - 130px); /* Adjust width to fit with button */
+}
+
+.sort-options button {
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.sort-options button:hover {
+  background-color: #900000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.users-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-item {
+  background-color: #333333;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.user-item:hover {
+  transform: translateY(-2px);
+}
+
+.user-item h2 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.user-item p {
+  margin: 4px 0;
+  color: #e0e0e0;
+}
+
+.user-item p strong {
+  color: #b30000;
+}
+
+button.add-user {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button.add-user:hover {
+  background-color: #0056b3;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #222222;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px; /* Smaller modal */
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #b30000;
+  font-size: 20px;
+}
+
+.modal-content input,
+.modal-content select {
+  display: block;
+  width: calc(100% - 20px);
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.modal-content button {
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #cc0000;
+}

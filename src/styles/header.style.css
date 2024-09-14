@@ -91,18 +91,20 @@ header {
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 248px;
+  right: 450px;
   background: none;
   border: none;
-  color: #ffffff;
+  color: #b30000;
   font-size: 24px;
   cursor: pointer;
+  z-index: 1000; 
 }
 
 .tabs {
   display: flex;
   border-bottom: 1px solid #444444;
+  margin-bottom: 10px;
 }
 
 .tab {
@@ -152,16 +154,6 @@ header {
 
 .modal-overlay {
   background: rgba(0, 0, 0, 0.5);
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-  background: transparent;
-  font-size: 24px;
-  cursor: pointer;
 }
 
 .modal-content {

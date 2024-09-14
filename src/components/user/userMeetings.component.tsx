@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../styles/userMeetings.style.css';
+import '../../styles/meetings.style.css';
 import '../../styles/global.css';
 
 const UserMeetings = () => {
@@ -44,20 +44,17 @@ const UserMeetings = () => {
     fetchMeetingsAndServices();
   }, []);
 
-  const handleSortChange = (e) => {
-    setSortOrder(e.target.value);
-  };
-
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
   };
-
-  const filteredMeetings = meetings.filter(meeting => {
+  const filteredMeetings = Array.isArray(meetings) ? meetings.filter(meeting => {
+  // const filteredMeetings = meetings.filter(meeting => {
     const meetsServiceType = filters.serviceType ? meeting.serviceType === filters.serviceType : true;
     const meetsDateRange = filters.dateRange ? new Date(meeting.date) >= new Date(filters.dateRange) : true;
     return meetsServiceType && meetsDateRange;
-  });
+  }) : [];
+// });
 
   const sortedMeetings = [...filteredMeetings].sort((a, b) => {
     if (sortOrder === 'date') {
@@ -72,13 +69,6 @@ const UserMeetings = () => {
   return (
     <div className="meetings-container">
       <h1>רשימת הפגישות</h1>
-
-      <div className="sort-options">
-        <label htmlFor="sortOrder">סדר לפי:</label>
-        <select id="sortOrder" value={sortOrder} onChange={handleSortChange}>
-          <option value="date">תאריך</option>
-        </select>
-      </div>
 
       <div className="filter-options">
         <label htmlFor="serviceType"> סנן לפי סוג שירות: </label>
@@ -98,11 +88,16 @@ const UserMeetings = () => {
           onChange={handleFilterChange}
         />
       </div>
-
+      {filteredMeetings.length === 0 ? (
+        <div className="no-meetings-message">
+          <p>אין לך פגישות.</p>
+          <a href="/meetings" className="schedule-link">לקביעת פגישה לחץ כאן</a>
+        </div>
+      ) : (
       <ul className="meetings-list">
         {sortedMeetings.map(meeting => (
           <li key={meeting.id} className="meeting-item">
-            <p><strong>שירות:</strong> {serviceTypes[meeting.serviceType] || meeting.serviceType}</p>
+            <p><strong>סוג שירות:</strong> {serviceTypes[meeting.serviceType] || meeting.serviceType}</p>
             <p><strong>תאריך:</strong> {new Date(meeting.date).toLocaleDateString()}</p>
             <p><strong>שעה:</strong> {meeting.startTime}</p>
             <p><strong>שם:</strong> {meeting.clientName}</p>
@@ -112,6 +107,7 @@ const UserMeetings = () => {
           </li>
         ))}
       </ul>
+      )}
     </div>
   );
 };

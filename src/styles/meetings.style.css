@@ -1,0 +1,411 @@
+.meetings-container {
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin: auto;
+  direction: rtl;
+  background-color: transparent;
+}
+
+.meetings-container h1 {
+  color: #b30000;
+  margin-bottom: 30px;
+  font-size: 28px;
+  text-align: center;
+}
+
+.sort-options,
+.filter-options {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.sort-options label,
+.filter-options label {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #ffffff;
+}
+
+.sort-options select,
+.filter-options select,
+.filter-options input[type="date"] {
+  background-color: #444444;
+  color: #ffffff;
+  border: 1px solid #666666;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.meetings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.meeting-item {
+  background-color: #333333;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  flex: 1 1 calc(25% - 15px);
+  min-width: 200px;
+  box-sizing: border-box;
+}
+
+.meeting-item p {
+  margin: 5px 0;
+  color: #ffffff;
+}
+
+.meeting-item p strong {
+  color: #b30000;
+}
+
+.meeting-item .duration {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #b30000;
+}
+
+.meeting-item .meeting-email {
+  direction: ltr;
+  color: #ffffff;
+}
+
+button,
+button.add-meeting {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  background-color: #b30000;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover,
+button.add-meeting:hover {
+  background-color: #900000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button.add-meeting {
+  background-color: #007bff;
+  margin-top: 20px;
+}
+
+button.add-meeting:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+.meeting-item {
+  background-color: #333333;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%; /* Ensure the item takes full width */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.meeting-item:hover {
+  transform: translateY(-3px);
+}
+
+.meeting-details p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #e0e0e0;
+}
+
+.meeting-form input,
+.meeting-form select {
+  display: block;
+  width: calc(100% - 20px);
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.meeting-form button {
+  margin-right: 10px;
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.meeting-form button:hover {
+  background-color: #cc0000;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #222222;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #b30000;
+  font-size: 24px;
+}
+
+.modal-content input,
+.modal-content select {
+  display: block;
+  width: calc(100% - 20px);
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.modal-content button {
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #cc0000;
+}
+
+button {
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #cc0000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: #444444;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  color: #ffffff;
+  margin: 0;
+}
+
+.modal-header button.close {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content button {
+  display: block;
+  width: calc(100% - 22px);
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.modal-content input,
+.modal-content select {
+  background-color: #555555;
+  color: #ffffff;
+  border: 1px solid #666666;
+  font-size: 16px;
+}
+
+.modal-content button {
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.modal-content button:hover {
+  background-color: #900000;
+}
+
+.edit-form {
+  background: #444444;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.edit-form h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form button {
+  display: block;
+  width: calc(100% - 22px);
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.edit-form input,
+.edit-form select {
+  background-color: #555555;
+  color: #ffffff;
+  border: 1px solid #666666;
+  font-size: 16px;
+}
+
+.edit-form button {
+  background-color: #b30000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.edit-form button:hover {
+  background-color: #900000;
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 20px;
+} */

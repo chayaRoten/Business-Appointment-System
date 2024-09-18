@@ -1,4 +1,4 @@
-import React, { useState, useContext, FormEvent } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth.context';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -8,12 +8,11 @@ import '../styles/global.css';
 
 
 interface SignInProps {
-  onSuccess: (userData: any) => void;
+  onSuccess: (userData: unknown) => void;
   closeModal: () => void;
 }
 
 const SignIn: React.FC<SignInProps> = ({ onSuccess, closeModal }) => {
-  const [credentials, setCredentials] = useState({email:'',  password: '', username: '' });
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');

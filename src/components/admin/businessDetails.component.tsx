@@ -4,9 +4,9 @@ import '../../styles/businessDetails.style.css';
 import '../../styles/global.css';
 
 const BusinessDetails = () => {
-  const [businessDetails, setBusinessDetails] = useState(null);
+  const [businessDetails, setBusinessDetails] = useState<BusinessDetails | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [formDetails, setFormDetails] = useState({
@@ -15,7 +15,7 @@ const BusinessDetails = () => {
     phone: '',
     email: '',
   });
-  const [creationError, setCreationError] = useState(null);
+  const [creationError, setCreationError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBusinessDetails = async () => {
@@ -38,7 +38,7 @@ const BusinessDetails = () => {
           });
         }
       } catch (err) {
-        setError(err.message);
+        setError((err as Error).message);
       } finally {
         setLoading(false);
       }
@@ -59,7 +59,7 @@ const BusinessDetails = () => {
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormDetails(prevDetails => ({
       ...prevDetails,
@@ -79,7 +79,7 @@ const BusinessDetails = () => {
       setBusinessDetails(formDetails);
       setIsEditing(false);
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     }
   };
 
@@ -95,7 +95,7 @@ const BusinessDetails = () => {
       setBusinessDetails(formDetails);
       setIsCreating(false);
     } catch (err) {
-      setCreationError(err.message);
+      setCreationError((err as Error).message);
     }
   };
 

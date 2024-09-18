@@ -4,11 +4,11 @@ import '../../styles/meetings.style.css';
 import '../../styles/global.css';
 
 const UserMeetings = () => {
-  const [meetings, setMeetings] = useState([]);
-  const [serviceTypes, setServiceTypes] = useState({});
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
+  const [serviceTypes, setServiceTypes] = useState<ServiceTypes>({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [sortOrder, setSortOrder] = useState('date'); // State for sorting
+  const [error, setError] = useState<string | null>(null);
+  const [sortOrder] = useState('date'); // State for sorting
   const [filters, setFilters] = useState({ serviceType: '', dateRange: '' }); // State for filters
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const UserMeetings = () => {
 
         // Fetch service types
         const servicesResponse = await axios.get('http://localhost:3000/services', config);
-        const services = servicesResponse.data.reduce((acc, service) => {
+        const services = servicesResponse.data.reduce((acc: { [x: string]: unknown; }, service: { id: string | number; name: unknown; }) => {
           acc[service.id] = service.name;
           return acc;
         }, {});
@@ -36,7 +36,7 @@ const UserMeetings = () => {
 
         setLoading(false);
       } catch (error) {
-        setError(error);
+        setError((error as Error).message);
         setLoading(false);
       }
     };
@@ -44,27 +44,31 @@ const UserMeetings = () => {
     fetchMeetingsAndServices();
   }, []);
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
   };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+  };
+
   const filteredMeetings = Array.isArray(meetings) ? meetings.filter(meeting => {
-  // const filteredMeetings = meetings.filter(meeting => {
     const meetsServiceType = filters.serviceType ? meeting.serviceType === filters.serviceType : true;
     const meetsDateRange = filters.dateRange ? new Date(meeting.date) >= new Date(filters.dateRange) : true;
     return meetsServiceType && meetsDateRange;
   }) : [];
-// });
 
   const sortedMeetings = [...filteredMeetings].sort((a, b) => {
     if (sortOrder === 'date') {
-      return new Date(a.date) - new Date(b.date);
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
     }
     return 0;
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading meetings: {error.message}</p>;
+  if (error) return <p>Error loading meetings: {error}</p>;
 
   return (
     <div className="meetings-container">
@@ -85,7 +89,7 @@ const UserMeetings = () => {
           id="dateRange"
           name="dateRange"
           value={filters.dateRange}
-          onChange={handleFilterChange}
+          onChange={handleDateChange}
         />
       </div>
       {filteredMeetings.length === 0 ? (

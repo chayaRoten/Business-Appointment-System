@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import SignIn from './signIn.component';
@@ -30,14 +30,25 @@ const decodeToken = (token: string) => {
 };
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [isOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const isAdminRoute = location.pathname.includes('/admin');
+  
+    // Define handleKeyDown first
+  const handleKeyDown = useCallback((event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setModalIsOpen(false);
+    }
+  }, []);
+
+  // Define closeModal next
+  const closeModal = useCallback(() => {
+    setModalIsOpen(false);
+  }, []);
 
   useEffect(() => {
     const tokenString = localStorage.getItem('jwtToken');
@@ -51,25 +62,10 @@ const Navbar = () => {
     }
   }, [user]);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   const openModal = () => {
     setModalIsOpen(true);
     document.addEventListener('keydown', handleKeyDown);
   };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    document.removeEventListener('keydown', handleKeyDown);
-  };
-
-  const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      closeModal();
-    }
-  }, []);
 
   const handleSignOut = () => {
     localStorage.removeItem('jwtToken');
@@ -77,13 +73,13 @@ const Navbar = () => {
     navigate('/home');
   };
 
-  const handleLoginSuccess = (userData: any) => {
-    setUser(userData);
+  const handleLoginSuccess = (userData: unknown) => {
+    setUser(userData as User);
     closeModal();
   };
 
-  const handleSignUpSuccess = (userData: any) => {
-    setUser(userData);
+  const handleSignUpSuccess = (userData: unknown) => {
+    setUser(userData as User);
     closeModal();
   };
 

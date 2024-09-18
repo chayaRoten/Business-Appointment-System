@@ -4,9 +4,9 @@ import '../../styles/meetings.style.css';
 import '../../styles/global.css';
 
 const BusinessMeetings = () => {
-  const [meetings, setMeetings] = useState([]);
+  const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [newMeeting, setNewMeeting] = useState({
     note: '',
     date: '',
@@ -15,11 +15,11 @@ const BusinessMeetings = () => {
     serviceType: '',
     clientName: ''
   });
-  const [editMeeting, setEditMeeting] = useState(null);
-  const [services, setServices] = useState([]);
+  const [editMeeting, setEditMeeting] = useState<Meeting | null>(null);
+  const [services, setServices] = useState<Service[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [serviceTypes, setServiceTypes] = useState({});
-  const [sortOrder, setSortOrder] = useState('date');
+  const [serviceTypes, setServiceTypes] = useState<ServiceType>({} as ServiceType);
+  const [sortOrder, setSortOrder] = useState<string>('date');
   const [filters, setFilters] = useState({
     serviceType: '',
     dateRange: '',
@@ -46,23 +46,24 @@ const BusinessMeetings = () => {
 
       // Fetch service types
       const servicesResponse = await axios.get('http://localhost:3000/services', config);
-      const services = servicesResponse.data.reduce((acc, service) => {
+      const servicesMap = servicesResponse.data.reduce((acc: { [x: string]: unknown; }, service: { id: string | number; name: unknown; }) => {
         acc[service.id] = service.name;
         return acc;
       }, {});
-      setServiceTypes(services);
-      setServices(servicesResponse.data); // Store services if needed
+    
+      setServices(servicesResponse.data); // Adjust if the API response structure is different
+      setServiceTypes(servicesMap);
 
       setLoading(false);
     } catch (error) {
-      setError(error);
+      setError((error as Error).message);
       setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const handleAddMeeting = async () => {
     try {
@@ -79,11 +80,15 @@ const BusinessMeetings = () => {
       });
       setShowModal(false);
     } catch (error) {
-      setError(error);
+      setError((error as Error).message);
     }
   };
 
-  const handleEditMeeting = async (id) => {
+  const handleEditMeeting = async (id: number) => {
+    if (editMeeting === null) {
+      console.error('EditMeeting is null');
+      return;
+    }
     if (!editMeeting.date || !editMeeting.startTime || !editMeeting.clientName || !editMeeting.serviceType || !editMeeting.clientEmail) {
       alert('אנא מלא את כל השדות');
       return;
@@ -96,27 +101,39 @@ const BusinessMeetings = () => {
       setEditMeeting(null);
     } catch (error) {
       console.error('Error updating meeting:', error);
-      setError(error);
+      setError((error as Error).message);
     }
   };
 
-  const handleDeleteMeeting = async (id) => {
+  const handleDeleteMeeting = async (id: number) => {
     try {
       const config = getTokenConfig();
       await axios.delete(`http://localhost:3000/meetings/${id}`, config);
       setMeetings(meetings.filter(meeting => meeting.id !== id));
     } catch (error) {
-      setError(error);
+      setError((error as Error).message);
     }
   };
 
-  const handleSortChange = (e) => {
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOrder(e.target.value);
   };
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFilters(prevFilters => ({ ...prevFilters, [name]: value }));
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [name]: value,
+    }));
   };
 
   // Filter and sort meetings
@@ -127,9 +144,18 @@ const BusinessMeetings = () => {
     return meetsServiceType && meetsDateRange && meetsClientName;
   });
 
-  const sortedMeetings = [...filteredMeetings].sort((a, b) => {
+  // const sortedMeetings = [...filteredMeetings].sort((a, b) => {
+  //   if (sortOrder === 'date') {
+  //     return new Date(a.date) - new Date(b.date);
+  //   } else if (sortOrder === 'clientName') {
+  //     return a.clientName.localeCompare(b.clientName);
+  //   }
+  //   return 0;
+  // });
+
+  const sortedMeetings = [...filteredMeetings].sort((a: Meeting, b: Meeting) => {
     if (sortOrder === 'date') {
-      return new Date(a.date) - new Date(b.date);
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
     } else if (sortOrder === 'clientName') {
       return a.clientName.localeCompare(b.clientName);
     }
@@ -137,7 +163,7 @@ const BusinessMeetings = () => {
   });
 
   if (loading) return <p>טוען...</p>;
-  if (error) return <p>שגיאה בהטענת הפגישות: {error.message}</p>;
+  if (error) return <p>שגיאה בהטענת הפגישות: {error}</p>;
 
   return (
     <div className="meetings-container">
@@ -166,7 +192,7 @@ const BusinessMeetings = () => {
           id="dateRange"
           name="dateRange"
           value={filters.dateRange}
-          onChange={handleFilterChange}
+          onChange={handleDateChange}
         />
       </div>
 

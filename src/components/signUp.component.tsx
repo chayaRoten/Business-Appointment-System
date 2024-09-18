@@ -7,12 +7,11 @@ import '../styles/global.css';
 
 
 interface SignUpProps {
-  onSuccess: (userData: any) => void;
+  onSuccess: (userData: unknown) => void;
   closeModal: () => void;
 }
 
 const SignUp: React.FC<SignUpProps> = ({ onSuccess, closeModal }) => {
-  const [newUserData, setNewUserData] =  useState({email:'',  password: '', username: '' });
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');

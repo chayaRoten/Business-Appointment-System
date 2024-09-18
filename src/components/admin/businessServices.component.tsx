@@ -4,11 +4,11 @@ import '../../styles/businessServices.style.css';
 import '../../styles/global.css';
 
 const BusinessServices = () => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [newService, setNewService] = useState({ name: '', cost: '' });
-  const [editService, setEditService] = useState(null);
+  const [editService, setEditService] = useState<Service | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('add'); // 'add' or 'edit'
   const [serviceIdToFetch, setServiceIdToFetch] = useState('');
@@ -29,7 +29,11 @@ const BusinessServices = () => {
       const response = await axios.get('http://localhost:3000/services', config);
       setServices(response.data);
     } catch (error) {
-      setError(error);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }
@@ -37,7 +41,7 @@ const BusinessServices = () => {
 
   useEffect(() => {
     updateServices();
-  }, []);
+  });
 
   const handleAddService = async () => {
     try {
@@ -47,12 +51,12 @@ const BusinessServices = () => {
       setShowModal(false);
       updateServices(); // Refresh services list
     } catch (error) {
-      setError(error);
+      setError((error as Error).message);
     }
   };
 
   const handleEditService = async () => {
-    if (!editService.name || !editService.cost) {
+    if (!editService?.name || !editService?.cost) {
       alert('Please fill out all fields');
       return;
     }
@@ -63,21 +67,29 @@ const BusinessServices = () => {
       setShowModal(false);
       updateServices(); // Refresh services list
     } catch (error) {
-      setError(error);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 
-  const handleDeleteService = async (id) => {
+  const handleDeleteService = async (id: number) => {
     try {
       const config = getTokenConfig();
       await axios.delete(`http://localhost:3000/services/${id}`, config);
       updateServices(); // Refresh services list
     } catch (error) {
-      setError(error);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     }
   };
 
-  const fetchServiceById = async (id) => {
+  const fetchServiceById = async (id: number) => {
     try {
       const config = getTokenConfig();
       const response = await axios.get(`http://localhost:3000/services/${id}`, config);
@@ -85,12 +97,33 @@ const BusinessServices = () => {
       setModalMode('edit');
       setShowModal(true);
     } catch (error) {
-      setError(error);
+      setError((error as Error).message);
     }
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading services: {error.message}</p>;
+  if (error) {
+    return <p>Error loading services: {typeof error === 'string' ? error : 'An error occurred'}</p>;
+  }
+
+
+  // Handle changes to the input fields
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (modalMode === 'add') {
+      setNewService({ ...newService, name: e.target.value });
+    } else if (editService) {
+      setEditService({ ...editService, name: e.target.value });
+    }
+  };
+
+
+  const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (modalMode === 'add') {
+      setNewService({ ...newService, cost: e.target.value });
+    } else if (editService) {
+      setEditService({ ...editService, cost: parseFloat(e.target.value) });
+    }
+  };
 
   return (
     <div className="services-container">
@@ -103,7 +136,9 @@ const BusinessServices = () => {
           value={serviceIdToFetch}
           onChange={(e) => setServiceIdToFetch(e.target.value)}
         />
-        <button onClick={() => fetchServiceById(serviceIdToFetch)}>Fetch Service by ID</button>
+        <button onClick={() => fetchServiceById(Number(serviceIdToFetch))}>
+          Fetch Service by ID
+        </button>
       </div>
       <ul className="services-list">
         {services.map(service => (
@@ -124,18 +159,14 @@ const BusinessServices = () => {
             <input
               type="text"
               placeholder="Service Name"
-              value={modalMode === 'add' ? newService.name : editService.name}
-              onChange={(e) => modalMode === 'add'
-                ? setNewService({ ...newService, name: e.target.value })
-                : setEditService({ ...editService, name: e.target.value })}
+              value={modalMode === 'add' ? newService.name : (editService ? editService.name : '')}
+              onChange={handleNameChange}
             />
             <input
               type="number"
               placeholder="Service Cost"
-              value={modalMode === 'add' ? newService.cost : editService.cost}
-              onChange={(e) => modalMode === 'add'
-                ? setNewService({ ...newService, cost: e.target.value })
-                : setEditService({ ...editService, cost: e.target.value })}
+              value={modalMode === 'add' ? newService.cost : editService ? editService.cost : 0}
+              onChange={handleCostChange}
             />
             {modalMode === 'add' ? (
               <button onClick={handleAddService}>Add</button>

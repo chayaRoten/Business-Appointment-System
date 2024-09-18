@@ -5,9 +5,9 @@ import '../../styles/global.css';
 
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -24,7 +24,8 @@ const Users = () => {
         setUsers(response.data);
         setLoading(false);
       } catch (error) {
-        setError(error);
+        if (error instanceof Error)
+          setError(error);
         setLoading(false);
       }
     };

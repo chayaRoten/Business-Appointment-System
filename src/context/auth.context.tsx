@@ -77,12 +77,13 @@ import { User } from '../interfaces/user.interface';
 // Create an AuthContext with an initial value of undefined
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // State to store the current user
     const [user, setUser] = useState<User | null>(null);
 
     // Function to handle user sign-in
-    const signIn = async (email: string, password: string, username: string) => {
+    const signIn = async (email: string, password: string, username: string): Promise<{ success: boolean; userData?: unknown }> => {
         try {
             // Send a POST request to the server to sign in
             const response = await fetch('http://localhost:3000/signin', {

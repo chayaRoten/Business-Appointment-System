@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -9,7 +9,6 @@ import { AdminLayout } from './components/admin/adminLayout.component.tsx';
 import './index.css'
 import { Home } from './components/user/home.component.tsx';
 import BusinessDetails from './components/admin/businessDetails.component.tsx';
-import SignIn from './components/signIn.component.tsx';
 import SignUp from './components/signUp.component.tsx';
 import { AuthProvider } from './context/auth.context.tsx';
 import BusinessServices from './components/admin/businessServices.component.tsx';
@@ -20,6 +19,14 @@ import { UserLayout } from './components/user/userLayout.component.tsx';
 import Projects from './components/user/projects.component.tsx';
 import MeetingScheduler from './components/user/meetingScheduler.component.tsx';
 import UserMeetings from './components/user/userMeetings.component.tsx';
+
+const handleSuccess = () => {
+  console.log('Sign up was successful');
+};
+
+const handleCloseModal = () => {
+  console.log('Modal closed');
+};
 
 const router = createBrowserRouter([
   {
@@ -36,11 +43,18 @@ const router = createBrowserRouter([
       },
       {
         path: "signin",
-        element: <AuthProvider><div><SignIn></SignIn></div></AuthProvider>,
+        element: <AuthProvider>
+          <div>
+            <SignUp onSuccess={handleSuccess} closeModal={handleCloseModal} />
+          </div></AuthProvider>,
       },
       {
         path: "signup",
-        element: <AuthProvider><div><SignUp></SignUp></div></AuthProvider>,
+        element: <AuthProvider>
+          <div>
+            <SignUp onSuccess={handleSuccess} closeModal={handleCloseModal} />
+          </div>
+        </AuthProvider>,
       },
       {
         path: "/about",
@@ -61,7 +75,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-  path: "admin",
+    path: "admin",
     Component: AdminLayout,
     children: [
       {

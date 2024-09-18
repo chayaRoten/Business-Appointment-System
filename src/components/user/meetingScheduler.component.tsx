@@ -1,25 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../../styles/alerts.style.css';
 import '../../styles/meetingScheduler.style.css';
 import '../../styles/global.css';
 
+interface CustomJwtPayload extends JwtPayload {
+  username?: string;
+  email?: string;
+}
 
 
 const MeetingScheduler = () => {
-  const [serviceTypes, setServiceTypes] = useState([]);
+  const [serviceTypes, setServiceTypes] = useState<ServiceType[]>([]);
   const [serviceType, setServiceType] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [note, setNote] = useState('');
   const [clientName, setClientName] = useState('');
   const [clientEmail, setClientEmail] = useState('');
-  const [error, setError] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(true);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const tokenString = localStorage.getItem('jwtToken');
@@ -30,7 +34,7 @@ const MeetingScheduler = () => {
     }
 
     try {
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode<CustomJwtPayload>(token);
       setClientName(decoded.username || '');
       setClientEmail(decoded.email || '');
     } catch (error) {
@@ -53,7 +57,7 @@ const MeetingScheduler = () => {
     fetchServiceTypes();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const tokenString = localStorage.getItem('jwtToken');
     const token = tokenString !== null ? JSON.parse(tokenString) : null;
@@ -111,7 +115,7 @@ const MeetingScheduler = () => {
           confirmButton: 'swal2-confirm'
         }
       });
-      setError('Failed to schedule meeting');
+      console.error(error);
     }
   };
 

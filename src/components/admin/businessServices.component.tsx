@@ -26,7 +26,7 @@ const BusinessServices = () => {
   const updateServices = async () => {
     try {
       const config = getTokenConfig();
-      const response = await axios.get('http://localhost:3000/services', config);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/services`, config);
       setServices(response.data);
     } catch (error) {
       if (error instanceof Error) {
@@ -46,7 +46,7 @@ const BusinessServices = () => {
   const handleAddService = async () => {
     try {
       const config = getTokenConfig();
-      await axios.post('http://localhost:3000/services', newService, config);
+      await axios.post(`${import.meta.env.VITE_API_URL}/services`, newService, config);
       setNewService({ name: '', cost: '' });
       setShowModal(false);
       updateServices(); // Refresh services list
@@ -62,7 +62,7 @@ const BusinessServices = () => {
     }
     try {
       const config = getTokenConfig();
-      await axios.put(`http://localhost:3000/services/${editService.id}`, editService, config);
+      await axios.put(`${import.meta.env.VITE_API_URL}/services/${editService.id}`, editService, config);
       setEditService(null);
       setShowModal(false);
       updateServices(); // Refresh services list
@@ -78,7 +78,7 @@ const BusinessServices = () => {
   const handleDeleteService = async (id: number) => {
     try {
       const config = getTokenConfig();
-      await axios.delete(`http://localhost:3000/services/${id}`, config);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/services/${id}`, config);
       updateServices(); // Refresh services list
     } catch (error) {
       if (error instanceof Error) {
@@ -92,7 +92,7 @@ const BusinessServices = () => {
   const fetchServiceById = async (id: number) => {
     try {
       const config = getTokenConfig();
-      const response = await axios.get(`http://localhost:3000/services/${id}`, config);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/services/${id}`, config);
       setEditService(response.data);
       setModalMode('edit');
       setShowModal(true);

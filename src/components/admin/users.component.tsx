@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../styles/users.style.css';
 import '../../styles/global.css';
@@ -20,7 +20,7 @@ const Users = () => {
           }
         };
 
-        const response = await axios.get('http://localhost:3000/users', config);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`, config);
         setUsers(response.data);
         setLoading(false);
       } catch (error) {

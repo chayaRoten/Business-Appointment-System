@@ -41,16 +41,16 @@ const BusinessMeetings = () => {
       const config = getTokenConfig();
 
       // Fetch meetings
-      const meetingsResponse = await axios.get('http://localhost:3000/meetings', config);
+      const meetingsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/meetings`, config);
       setMeetings(meetingsResponse.data);
 
       // Fetch service types
-      const servicesResponse = await axios.get('http://localhost:3000/services', config);
+      const servicesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/services`, config);
       const servicesMap = servicesResponse.data.reduce((acc: { [x: string]: unknown; }, service: { id: string | number; name: unknown; }) => {
         acc[service.id] = service.name;
         return acc;
       }, {});
-    
+
       setServices(servicesResponse.data); // Adjust if the API response structure is different
       setServiceTypes(servicesMap);
 
@@ -68,7 +68,7 @@ const BusinessMeetings = () => {
   const handleAddMeeting = async () => {
     try {
       const config = getTokenConfig();
-      const response = await axios.post('http://localhost:3000/meetings', newMeeting, config);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/meetings`, newMeeting, config);
       setMeetings([...meetings, response.data]);
       setNewMeeting({
         note: '',
@@ -96,7 +96,7 @@ const BusinessMeetings = () => {
     try {
       const config = getTokenConfig();
       console.log(editMeeting);
-      const response = await axios.put(`http://localhost:3000/meetings/${id}`, editMeeting, config);
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/meetings/${id}`, editMeeting, config);
       setMeetings(meetings.map(meeting => (meeting.id === id ? response.data : meeting)));
       setEditMeeting(null);
     } catch (error) {
@@ -108,7 +108,7 @@ const BusinessMeetings = () => {
   const handleDeleteMeeting = async (id: number) => {
     try {
       const config = getTokenConfig();
-      await axios.delete(`http://localhost:3000/meetings/${id}`, config);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/meetings/${id}`, config);
       setMeetings(meetings.filter(meeting => meeting.id !== id));
     } catch (error) {
       setError((error as Error).message);
@@ -143,15 +143,6 @@ const BusinessMeetings = () => {
     const meetsClientName = filters.clientName ? meeting.clientName.toLowerCase().includes(filters.clientName.toLowerCase()) : true;
     return meetsServiceType && meetsDateRange && meetsClientName;
   });
-
-  // const sortedMeetings = [...filteredMeetings].sort((a, b) => {
-  //   if (sortOrder === 'date') {
-  //     return new Date(a.date) - new Date(b.date);
-  //   } else if (sortOrder === 'clientName') {
-  //     return a.clientName.localeCompare(b.clientName);
-  //   }
-  //   return 0;
-  // });
 
   const sortedMeetings = [...filteredMeetings].sort((a: Meeting, b: Meeting) => {
     if (sortOrder === 'date') {

@@ -23,11 +23,11 @@ const UserMeetings = () => {
         };
 
         // Fetch meetings
-        const meetingsResponse = await axios.get('http://localhost:3000/meetings', config);
+        const meetingsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/meetings`, config);
         setMeetings(meetingsResponse.data);
 
         // Fetch service types
-        const servicesResponse = await axios.get('http://localhost:3000/services', config);
+        const servicesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/services`, config);
         const services = servicesResponse.data.reduce((acc: { [x: string]: unknown; }, service: { id: string | number; name: unknown; }) => {
           acc[service.id] = service.name;
           return acc;

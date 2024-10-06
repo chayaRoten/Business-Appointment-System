@@ -10,7 +10,7 @@ export const AdminLayout = () => {
       try {
         const tokenString = localStorage.getItem('jwtToken');
         const token = tokenString !== null ? JSON.parse(tokenString) : null;
-        const response = await axios.get('http://localhost:3000/business', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/business`, {
           headers: {
             authorization: `Bearer ${token}`
           }
@@ -30,14 +30,14 @@ export const AdminLayout = () => {
   }, []);
 
   if (isAuthorized === null) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       {isAuthorized ? <Navbar /> : <h3>You are not authorized to perform this action <br />
         <a href="/signin">התחבר</a> / <a href="/signup">הרשם</a>
-        </h3>}
+      </h3>}
     </div>
   );
 };

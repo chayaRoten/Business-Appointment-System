@@ -32,25 +32,36 @@ const SignUp: React.FC<SignUpProps> = ({ onSuccess, closeModal }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await signUp(email, password, username);
       const response = await signUp(email, password, username);
-      if (response.success) {
+      if (!response.success) {
+
+        if (response.error === 'User already exists. Please login instead.') {
+          Swal.fire({
+            title: 'המשתמש קיים!',
+            text: 'אנא התחבר במקום להרשם.',
+            icon: 'warning',
+            confirmButtonText: 'אוקי'
+          });
+          closeModal();
+          return;
+        }
+      } else {
         onSuccess(response.userData);
+        Swal.fire({
+          title: 'הרשמה בוצעה בהצלחה!',
+          icon: 'success',
+          confirmButtonText: 'אוקי'
+        });
+        closeModal();
+        navigate('/home');
       }
-      Swal.fire({
-        title: 'Registration successful!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
-      closeModal();
-      navigate('/home');
     } catch (error) {
       console.error('Registration failed', error);
       Swal.fire({
-        title: 'Registration failed!',
-        text: 'Please check your details and try again.',
+        title: 'הרשמה נכשלה!',
+        text: 'אנא בדוק את הפרטים שלך ונסה שוב.',
         icon: 'error',
-        confirmButtonText: 'Try Again'
+        confirmButtonText: 'נסה שוב'
       });
     }
   };

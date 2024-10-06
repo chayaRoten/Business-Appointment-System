@@ -22,7 +22,7 @@ const BusinessDetails = () => {
       try {
         const tokenString = localStorage.getItem('jwtToken');
         const token = tokenString !== null ? JSON.parse(tokenString) : null;
-        const response = await axios.get('http://localhost:3000/business', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/business`, {
           headers: {
             authorization: `Bearer ${token}`
           }
@@ -71,7 +71,7 @@ const BusinessDetails = () => {
     try {
       const tokenString = localStorage.getItem('jwtToken');
       const token = tokenString !== null ? JSON.parse(tokenString) : null;
-      await axios.put('http://localhost:3000/business', formDetails, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
         headers: {
           authorization: `Bearer ${token}`
         }
@@ -87,7 +87,7 @@ const BusinessDetails = () => {
     try {
       const tokenString = localStorage.getItem('jwtToken');
       const token = tokenString !== null ? JSON.parse(tokenString) : null;
-      await axios.post('http://localhost:3000/business', formDetails, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
         headers: {
           authorization: `Bearer ${token}`
         }

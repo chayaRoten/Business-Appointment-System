@@ -23,7 +23,7 @@ const MeetingScheduler = () => {
   const [clientEmail, setClientEmail] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(true);
   const navigate = useNavigate();
-  
+
 
   useEffect(() => {
     const tokenString = localStorage.getItem('jwtToken');
@@ -43,7 +43,7 @@ const MeetingScheduler = () => {
 
     const fetchServiceTypes = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/services', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/services`, {
           headers: {
             authorization: `Bearer ${token}`
           }
@@ -81,7 +81,7 @@ const MeetingScheduler = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/meetings', newMeeting, config);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/meetings`, newMeeting, config);
       if (response.status === 201 || response.status === 200) {
         Swal.fire({
           title: 'הפגישה נקבעה בהצלחה',
@@ -140,7 +140,8 @@ const MeetingScheduler = () => {
             required
           >
             <option value="">בחר סוג שירות</option>
-            {serviceTypes.map((type) => (
+            {/* {serviceTypes.map((type) => ( */}
+            {Array.isArray(serviceTypes) && serviceTypes.map((type) => (
               <option key={type.id} value={type.id}>{type.name}</option>
             ))}
           </select>

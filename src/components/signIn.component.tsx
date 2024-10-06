@@ -33,7 +33,7 @@ const SignIn: React.FC<SignInProps> = ({ onSuccess, closeModal }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await signIn(email, password, username);
+      // await signIn(email, password, username);
       const response = await signIn(email, password, username);
       if (response.success) {
         onSuccess(response.userData);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-import '../../styles/global.css';
+// import '../../styles/global.css';
 
 
 import image1 from '../../assets/image1.jpg'

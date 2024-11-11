@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../styles/businessServices.style.css';
 import '../../styles/global.css';
@@ -11,7 +11,6 @@ const BusinessServices = () => {
   const [editService, setEditService] = useState<Service | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('add'); // 'add' or 'edit'
-  const [serviceIdToFetch, setServiceIdToFetch] = useState('');
 
   const getTokenConfig = () => {
     const tokenString = localStorage.getItem('jwtToken');
@@ -23,7 +22,8 @@ const BusinessServices = () => {
     };
   };
 
-  const updateServices = async () => {
+  // שימוש ב-useCallback כדי למנוע שינוי מיותר של הפונקציה updateServices
+  const updateServices = useCallback(async () => {
     try {
       const config = getTokenConfig();
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/services`, config);
@@ -37,12 +37,13 @@ const BusinessServices = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []); // ה-useCallback מבטיח שהפונקציה לא תשתנה אלא אם כן אחד מהתנאים שלה ישתנו
 
   useEffect(() => {
     updateServices();
-  });
+  }, [updateServices]); // עכשיו ה-useEffect יפול על updateServices בצורה נכונה
 
+  // שאר הקוד נשאר כמו שהיה
   const handleAddService = async () => {
     try {
       const config = getTokenConfig();
@@ -89,23 +90,10 @@ const BusinessServices = () => {
     }
   };
 
-  const fetchServiceById = async (id: number) => {
-    try {
-      const config = getTokenConfig();
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/services/${id}`, config);
-      setEditService(response.data);
-      setModalMode('edit');
-      setShowModal(true);
-    } catch (error) {
-      setError((error as Error).message);
-    }
-  };
-
   if (loading) return <p>Loading...</p>;
   if (error) {
     return <p>Error loading services: {typeof error === 'string' ? error : 'An error occurred'}</p>;
   }
-
 
   // Handle changes to the input fields
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +103,6 @@ const BusinessServices = () => {
       setEditService({ ...editService, name: e.target.value });
     }
   };
-
 
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (modalMode === 'add') {
@@ -130,15 +117,6 @@ const BusinessServices = () => {
       <h1>השירותים שלנו</h1>
       <div className="sort-options">
         <button className="add-service" onClick={() => { setModalMode('add'); setShowModal(true); }}>Add New Service</button>
-        <input
-          type="text"
-          placeholder="Service ID"
-          value={serviceIdToFetch}
-          onChange={(e) => setServiceIdToFetch(e.target.value)}
-        />
-        <button onClick={() => fetchServiceById(Number(serviceIdToFetch))}>
-          Fetch Service by ID
-        </button>
       </div>
       <ul className="services-list">
         {services.map(service => (

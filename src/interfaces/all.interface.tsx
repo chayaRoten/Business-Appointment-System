@@ -56,9 +56,3 @@ interface AuthContextProps {
 interface ServicesResponse {
   data: Service[];
 }
-
-// In SignIn and SignUp components
-interface SignInProps {
-  onSuccess: (userData: User) => void; // Update to User
-  closeModal: () => void;
-}

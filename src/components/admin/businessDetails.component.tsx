@@ -1,236 +1,3 @@
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import '../../styles/businessDetails.style.css';
-// import '../../styles/global.css';
-
-// const BusinessDetails = () => {
-//   const [businessDetails, setBusinessDetails] = useState<BusinessDetails | null>(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [isCreating, setIsCreating] = useState(false);
-//   const [formDetails, setFormDetails] = useState({
-//     name: '',
-//     address: '',
-//     phone: '',
-//     email: '',
-//   });
-//   const [creationError, setCreationError] = useState<string | null>(null);
-
-//   useEffect(() => {
-//     const fetchBusinessDetails = async () => {
-//       try {
-//         const tokenString = localStorage.getItem('jwtToken');
-//         const token = tokenString !== null ? JSON.parse(tokenString) : null;
-//         const response = await axios.get(`${import.meta.env.VITE_API_URL}/business`, {
-//           headers: {
-//             authorization: `Bearer ${token}`
-//           }
-//         });
-//         if (response.data.length > 0) {
-//           const data = response.data[0];
-//           setBusinessDetails(data);
-//           setFormDetails({
-//             name: data.name,
-//             address: data.address,
-//             phone: data.phone,
-//             email: data.email,
-//           });
-//         }
-//       } catch (err) {
-//         setError((err as Error).message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchBusinessDetails();
-//   }, []);
-
-//   const handleEditClick = () => {
-//     setIsEditing(true);
-//   };
-
-//   const handleCreateClick = () => {
-//     if (!businessDetails) {
-//       setIsCreating(true);
-//     } else {
-//       setCreationError('פרטי עסק כבר קיימים. ניתן לערוך את הפרטים הקיימים בלבד.');
-//     }
-//   };
-
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { name, value } = e.target;
-//     setFormDetails(prevDetails => ({
-//       ...prevDetails,
-//       [name]: value
-//     }));
-//   };
-
-//   const handleSaveClick = async () => {
-//     try {
-//       const tokenString = localStorage.getItem('jwtToken');
-//       const token = tokenString !== null ? JSON.parse(tokenString) : null;
-//       await axios.put(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
-//         headers: {
-//           authorization: `Bearer ${token}`
-//         }
-//       });
-//       setBusinessDetails(formDetails);
-//       setIsEditing(false);
-//     } catch (err) {
-//       setError((err as Error).message);
-//     }
-//   };
-
-//   const handleCreateSaveClick = async () => {
-//     try {
-//       const tokenString = localStorage.getItem('jwtToken');
-//       const token = tokenString !== null ? JSON.parse(tokenString) : null;
-//       await axios.post(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
-//         headers: {
-//           authorization: `Bearer ${token}`
-//         }
-//       });
-//       setBusinessDetails(formDetails);
-//       setIsCreating(false);
-//     } catch (err) {
-//       setCreationError((err as Error).message);
-//     }
-//   };
-
-//   const handleCancelClick = () => {
-//     setIsEditing(false);
-//     setIsCreating(false);
-//   };
-
-//   if (loading) {
-//     return <div className="loading">טוען...</div>;
-//   }
-
-//   if (error) {
-//     return <div className="error">שגיאה: {error}</div>;
-//   }
-
-//   return (
-//     <div className="business-details-container">
-//       {isCreating ? (
-//         <div className="edit-form">
-//           <h2>צור פרטי עסק חדשים</h2>
-//           <label>
-//             <strong>שם העסק:</strong>
-//             <input
-//               type="text"
-//               name="name"
-//               value={formDetails.name}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <label>
-//             <strong>כתובת:</strong>
-//             <input
-//               type="text"
-//               name="address"
-//               value={formDetails.address}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <label>
-//             <strong>טלפון:</strong>
-//             <input
-//               type="text"
-//               name="phone"
-//               value={formDetails.phone}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <label>
-//             <strong>דואר אלקטרוני:</strong>
-//             <input
-//               type="email"
-//               name="email"
-//               value={formDetails.email}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <button onClick={handleCreateSaveClick}>צור</button>
-//           <button onClick={handleCancelClick}>בטל</button>
-//           {creationError && <div className="error">{creationError}</div>}
-//         </div>
-//       ) : isEditing ? (
-//         <div className="edit-form">
-//           <h2>ערוך פרטי עסק</h2>
-//           <label>
-//             <strong>שם העסק:</strong>
-//             <input
-//               type="text"
-//               name="name"
-//               value={formDetails.name}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <label>
-//             <strong>כתובת:</strong>
-//             <input
-//               type="text"
-//               name="address"
-//               value={formDetails.address}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <label>
-//             <strong>טלפון:</strong>
-//             <input
-//               type="text"
-//               name="phone"
-//               value={formDetails.phone}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <label>
-//             <strong>דואר אלקטרוני:</strong>
-//             <input
-//               type="email"
-//               name="email"
-//               value={formDetails.email}
-//               onChange={handleInputChange}
-//             />
-//           </label>
-//           <button onClick={handleSaveClick}>שמור</button>
-//           <button onClick={handleCancelClick}>בטל</button>
-//         </div>
-//       ) : (
-//         <div>
-//           <h2>פרטי עסק</h2>
-//           {businessDetails ? (
-//             <>
-//               <p><strong>שם העסק:</strong> {businessDetails.name}</p>
-//               <p><strong>כתובת:</strong> {businessDetails.address}</p>
-//               <p><strong>טלפון:</strong> {businessDetails.phone}</p>
-//               <p><strong>דואר אלקטרוני:</strong> {businessDetails.email}</p>
-//               <button onClick={handleEditClick}>ערוך</button>
-//             </>
-//           ) : (
-//             <>
-//               <p>לא נמצאו פרטי עסק.</p>
-//               <button onClick={handleCreateClick}>צור פרטי עסק חדשים</button>
-//             </>
-//           )}
-//           {creationError && <div className="error">{creationError}</div>}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default BusinessDetails;
-
-
-
-
-
-
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Button, TextField, Typography, CircularProgress } from '@mui/material';
@@ -244,10 +11,12 @@ const BusinessDetails = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [formDetails, setFormDetails] = useState({
+    id: '',
     name: '',
     address: '',
     phone: '',
     email: '',
+    about: '',
   });
   const [creationError, setCreationError] = useState<string | null>(null);
 
@@ -265,10 +34,12 @@ const BusinessDetails = () => {
           const data = response.data[0];
           setBusinessDetails(data);
           setFormDetails({
+            id: data.id,
             name: data.name,
             address: data.address,
             phone: data.phone,
             email: data.email,
+            about: data.about || '',
           });
         }
       } catch (err) {
@@ -303,15 +74,28 @@ const BusinessDetails = () => {
 
   const handleSaveClick = async () => {
     try {
+      console.log(formDetails);
+
       const tokenString = localStorage.getItem('jwtToken');
       const token = tokenString !== null ? JSON.parse(tokenString) : null;
-      await axios.put(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
+
+      if (!token) {
+        setError('לא נמצא טוקן');
+        return;
+      }
+
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
         headers: {
           authorization: `Bearer ${token}`
         }
       });
-      setBusinessDetails(formDetails);
-      setIsEditing(false);
+
+      if (response.status === 200) {
+        setBusinessDetails(formDetails);
+        setIsEditing(false);
+      } else {
+        setError('היתה בעיה בעדכון פרטי העסק');
+      }
     } catch (err) {
       setError((err as Error).message);
     }
@@ -321,13 +105,18 @@ const BusinessDetails = () => {
     try {
       const tokenString = localStorage.getItem('jwtToken');
       const token = tokenString !== null ? JSON.parse(tokenString) : null;
-      await axios.post(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/business`, formDetails, {
         headers: {
           authorization: `Bearer ${token}`
         }
       });
-      setBusinessDetails(formDetails);
-      setIsCreating(false);
+
+      if (response.status === 201) {
+        setBusinessDetails(response.data);
+        setIsCreating(false);
+      } else {
+        setCreationError('היתה בעיה ביצירת פרטי העסק');
+      }
     } catch (err) {
       setCreationError((err as Error).message);
     }
@@ -382,6 +171,15 @@ const BusinessDetails = () => {
             label="דואר אלקטרוני"
             name="email"
             value={formDetails.email}
+            onChange={handleInputChange}
+            fullWidth
+            variant="outlined"
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="אודות"
+            name="about"
+            value={formDetails.about}
             onChange={handleInputChange}
             fullWidth
             variant="outlined"
@@ -446,6 +244,15 @@ const BusinessDetails = () => {
             variant="outlined"
             sx={{ marginBottom: 2 }}
           />
+          <TextField
+            label="אודות"
+            name="about"
+            value={formDetails.about}
+            onChange={handleInputChange}
+            fullWidth
+            variant="outlined"
+            sx={{ marginBottom: 2 }}
+          />
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button
               variant="contained"
@@ -474,6 +281,7 @@ const BusinessDetails = () => {
               <Typography variant="body1"><strong>כתובת:</strong> {businessDetails.address}</Typography>
               <Typography variant="body1"><strong>טלפון:</strong> {businessDetails.phone}</Typography>
               <Typography variant="body1"><strong>דואר אלקטרוני:</strong> {businessDetails.email}</Typography>
+              <Typography variant="body1"><strong>אודות:</strong> {businessDetails.about}</Typography> {/* הצגת about */}
               <Button
                 variant="contained"
                 color="primary"

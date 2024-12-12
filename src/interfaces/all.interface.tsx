@@ -4,6 +4,7 @@ interface BusinessDetails {
   address: string;
   phone: string;
   email: string;
+  about: string;
 }
 
 

@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# Business Appointment System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based system for managing business appointments, designed for both business owners and customers.  
+Business owners can manage business details, services, appointments, and customer data, while customers can schedule appointments and view business information.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Admin Interface:
+- Protected by authentication (username and password).
+- Manage business details (contact info, services, etc.).
+- Add, edit, and cancel appointments.
+- View customer list and appointment history.
 
-## Expanding the ESLint configuration
+### User Interface:
+- View business details and services.
+- Schedule an appointment with service type, date, time, and notes for the business owner.
+- View appointment confirmation.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Admin Functions:
+- Appointments can be sorted by date or customer name.
+- Customers cannot cancel appointments; they must contact the business owner.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used:
+- **Frontend:** React
+- **Backend:** Node.js
+- **Authentication:** Custom authentication for admin login
+- **State Management:** React state or Context API
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Setup
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/Business-Appointment-System.git
+   ```
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Run the app:
+   ```
+   npm start
+   ```
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
